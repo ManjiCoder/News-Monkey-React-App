@@ -61,7 +61,8 @@ export class News extends Component {
       author: "Jackson Cole",
       title:
         "Azeem Rafiq ‘ashamed’ as ex-Yorkshire cricketer issues apology for using anti-Semitic language in messages...",
-      description: "",
+      description:
+        "Penalty after the batsman pleaded guilty to not reporting corrupt approaches | ESPNcricinfo.com",
       url: "https://talksport.com/sport/cricket/985181/azeem-rafiq-apology-racist-messages-yorkshire/",
       urlToImage:
         "https://talksport.com/wp-content/uploads/sites/5/2021/11/NINTCHDBPICT000694115443.jpg?strip=all&quality=100&w=1200&h=800&crop=1",
@@ -112,26 +113,32 @@ export class News extends Component {
       loading: false,
     };
   }
-
   render() {
     return (
       <div className="container">
         <h2 className="my-3">NewsMonkey - Top Headlines</h2>
-        <div className="row">
-          <div className="mx-2 col-md-3">
-            <NewItems
-              title="my title"
-              description="my description"
-              imageUrl="https://cdn.24.co.za/files/Cms/General/d/9970/67e44818862b4ecba66127ee2c037915.jpg"
-              newsUrl="TODO"
-            />
-          </div>
-          <div className=" mx-2 col-md-3">
-            <NewItems title="my title" description="my description" />
-          </div>
-          <div className="mx-2 col-md-3">
-            <NewItems title="my title" description="my description" />
-          </div>
+        <div className="row justify-content-around">
+          {this.articles.map((element) => {
+            // console.log(element);
+            return (
+              <div className="mx-2 col-md-3" key={element.url}>
+                <NewItems
+                  title={
+                    element.title.length > 45
+                      ? element.title.slice(0, 45) + "..."
+                      : element.title
+                  }
+                  description={
+                    element.description.length > 90
+                      ? element.description.slice(0, 90) + "..."
+                      : element.description
+                  }
+                  imageUrl={element.urlToImage}
+                  newsUrl={element.url}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     );
