@@ -13,7 +13,7 @@ export class NewsItems extends Component {
     let { title, description, imageUrl, newsUrl } = this.props;
     return (
       <div className="card" style={{ width: "18rem" }}>
-        <img src={imageUrl} className="card-img-top" alt="..." />
+        <img src={!imageUrl ? "https://st1.latestly.com/wp-content/uploads/2021/11/SWOT-satellite-in-orbit-784x441.jpg" : imageUrl} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{description}</p>
