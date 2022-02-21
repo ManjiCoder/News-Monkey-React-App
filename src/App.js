@@ -5,12 +5,17 @@ import Navbar from './Components/Navbar';
 import News from './Components/News';
 
 export default class App extends Component {
-  c = 'manji'
+  country = "us"          //  THESE ARE REQUIED IN API_KEY
+  category = "general"     //  THESE ARE REQUIED IN API_KEY
   render() {
     return (
       <>
-        <Navbar title="NewsMonkey" about="About NewsMonkey" />
-        <News title="NewsMonkey" pagesize = "12" apikey="https://newsapi.org/v2/top-headlines?country=in&apiKey=ec7735c4db74410f90ffeffaaa8bd570" />
+        <Navbar title="NewsMonkey" />
+        <News
+          title="NewsMonkey"
+          pagesize={12}
+          apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=${this.category}&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
+        />
       </>
     )
   }

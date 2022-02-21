@@ -6,7 +6,7 @@ export class NewsItem extends Component {
   render() {
     // let { newsTitle, newsDescription, imgUrl, newsUrl } = this.props;  // Destructing - All destructured elements are unused
     return (
-        <div className="card" style={{ width: "18rem", height: "25rem" }}>
+        <div className="card" style={{ height: "30rem" }}>
           <img src={this.props.imgUrl} className="card-img-top" alt="..." />
           <div className="card-body">
             <h5 className="card-title">{this.props.newsTitle}</h5>

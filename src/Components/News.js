@@ -1,8 +1,25 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner'
+import PropTypes from 'prop-types'
 
 export class News extends Component {
+
+  static defaultProps = {
+    title: "NewsMonkey",
+    pagesize: 12,
+    apikey: `https://newsapi.org/v2/top-headlines?country=${this.country}&category=${this.category}&apiKey=ec7735c4db74410f90ffeffaaa8bd570`,
+
+  }
+
+  static propTypes = {
+    title: PropTypes.string,
+    pagesize: PropTypes.number,
+    apikey: PropTypes.string,
+
+  }
+
+
   // constructor declartion
   constructor() { // order is 1st means it will come first in the console
     super() // super() to run constructor
@@ -25,12 +42,10 @@ export class News extends Component {
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       loading: false
-    })   //  setState()
-    console.log(parsedData);
+    })
   }
 
   handlePreviousClick = async () => {
-    // console.log("Previous");
 
     let url = `${this.props.apikey}&page=${this.state.page - 1}&pageSize=${this.props.pagesize}`
     this.setState({ loading: true });
@@ -47,9 +62,7 @@ export class News extends Component {
 
     if (this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pagesize)) {
       console.log("end")
-      console.log(this.props.pagesize)
     }
-    // console.log("Next");
     else {
       let url = `${this.props.apikey}&page=${this.state.page + 1}&pageSize=${this.props.pagesize}`
       this.setState({ loading: true });
@@ -68,18 +81,18 @@ export class News extends Component {
     // console.log("render");  // order is 2nd means it will come second in the console
     return (
       <div className='container my-3'>
-        <h1>{this.props.title} - Top Headlines</h1>
+        <h1 className='my-5 text-center'>{this.props.title} - Top Headlines</h1>
         {/* show loading only if it is true in state; */}
         {this.state.loading && <Spinner />}
 
-        <div className="row">
+        <div className="row d-flex justify-content-center">
           {/* { this.state.articles.map((element) => { */}
           {!this.state.loading && this.state.articles.map((element) => {
             return <div className="col-md-3 mx-3 my-3" key={element.url}>
               <NewsItem
                 newsTitle={element.title ? element.title.slice(0, 45) + "..." : "null"}
                 newsDescription={element.description ? element.description.slice(0, 90) + "..." : "null"}
-                imgUrl={!element.urlToImage ? "https://cdn.vox-cdn.com/thumbor/uKdP56NAbqE_DLmKzzzrK6gxMOI=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22461569/dseifert_20210415_4535_0002.jpg" : element.urlToImage}
+                imgUrl={!element.urlToImage ? "https://images.livemint.com/img/2022/02/21/600x338/Cygnus_spacecraft_1645444527769_1645444527963.jpg" : element.urlToImage}
                 newsUrl={element.url}
               />
             </div>
