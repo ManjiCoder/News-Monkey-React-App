@@ -12,7 +12,7 @@ import {
 
 export default class App extends Component {
   country = "in"          //  THESE ARE REQUIED IN API_KEY
-  // category = "general"     //  THESE ARE REQUIED IN API_KEY
+  // category = "general"     //  Now This line is giving error THESE ARE REQUIED IN API_KEY
   render() {
     return (
       <div>

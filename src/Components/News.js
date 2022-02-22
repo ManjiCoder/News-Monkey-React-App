@@ -35,6 +35,9 @@ export class News extends Component {
     console.log("cmd"); // order is 3rd means it will come last in the console
 
     let url = `${this.props.apikey}&page=1&pageSize=${this.props.pagesize}`
+    // console.log(this.props.apikey);
+    // document.title = this.props.category;
+
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -47,8 +50,8 @@ export class News extends Component {
 
   handlePreviousClick = async () => {
 
-    let url = `${this.props.apikey}&page=${this.state.page - 1}&pageSize=${this.props.pagesize}`
-    this.setState({ loading: true });
+    let url = `${this.props.apikey}&page=${this.state.page - 1}&pageSize=${this.props.pagesize}`;
+    this.setState({ loading: true })
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({
@@ -90,10 +93,13 @@ export class News extends Component {
           {!this.state.loading && this.state.articles.map((element) => {
             return <div className="col-md-3 mx-3 my-3" key={element.url}>
               <NewsItem
-                newsTitle={element.title ? element.title.slice(0, 45) + "..." : "null"}
-                newsDescription={element.description ? element.description.slice(0, 90) + "..." : "null"}
+                newsTitle={element.title ? element.title : "null"}
+                newsDescription={element.description ? element.description : "null"}
                 imgUrl={!element.urlToImage ? "https://images.livemint.com/img/2022/02/21/600x338/Cygnus_spacecraft_1645444527769_1645444527963.jpg" : element.urlToImage}
                 newsUrl={element.url}
+                author={element.author ? element.author : "Unknown"}
+                newsDate={new Date(element.publishedAt).toGMTString()}
+                source={element.source.name}
               />
             </div>
           })}
