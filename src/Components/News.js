@@ -31,21 +31,37 @@ export class News extends Component {
     }
   }
 
-  async componentDidMount() {
-    console.log("cmd"); // order is 3rd means it will come last in the console
-
-    let url = `${this.props.apikey}&page=1&pageSize=${this.props.pagesize}`
-    // console.log(this.props.apikey);
-    // document.title = this.props.category;
-
+  async updataNews() {
+    let url = `${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pagesize}`
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
-      loading: false
+      loading: false,
     })
+    console.log(parsedData);
+    console.log(url);
+    console.log(this.state.page);
+  }
+
+  async componentDidMount() {
+    console.log("cmd"); // order is 3rd means it will come last in the console
+    // let url = `${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pagesize}`
+    // console.log(this.props.apikey);
+
+    // this.setState({ loading: true });
+    // let data = await fetch(url);
+    // let parsedData = await data.json();
+    // console.log(parsedData);
+    // this.setState({
+    //   articles: parsedData.articles,
+    //   totalResults: parsedData.totalResults,
+    //   loading: false
+    // })
+    this.updataNews();
+    console.log(this.state.page);
   }
 
   handlePreviousClick = async () => {
@@ -59,14 +75,21 @@ export class News extends Component {
       page: this.state.page - 1,
       loading: false
     })
+    // this.setState({
+    //   page: this.state.page - 1,
+    // });
+    // this.updataNews();
+    console.log(this.state.page);
   }
 
   handleNextClick = async () => {
 
-    if (this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pagesize)) {
-      console.log("end")
-    }
-    else {
+    if (!(this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pagesize))) {
+
+      // this.setState({
+      //   page: this.state.page + 1,
+      // });
+      // this.updataNews();
       let url = `${this.props.apikey}&page=${this.state.page + 1}&pageSize=${this.props.pagesize}`
       this.setState({ loading: true });
       let data = await fetch(url);
@@ -76,6 +99,7 @@ export class News extends Component {
         page: this.state.page + 1,
         loading: false
       })
+      console.log(this.state.page);
     }
 
   }
@@ -100,6 +124,7 @@ export class News extends Component {
                 author={element.author ? element.author : "Unknown"}
                 newsDate={new Date(element.publishedAt).toGMTString()}
                 source={element.source.name}
+                color={"danger"}
               />
             </div>
           })}

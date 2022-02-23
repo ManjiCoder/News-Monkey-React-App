@@ -12,6 +12,7 @@ import {
 
 export default class App extends Component {
   country = "in"          //  THESE ARE REQUIED IN API_KEY
+  pagesize = 12;
   // category = "general"     //  Now This line is giving error THESE ARE REQUIED IN API_KEY
   render() {
     return (
@@ -21,17 +22,19 @@ export default class App extends Component {
 
           <Routes>
             <Route path='/' element={
-              <News key={"general"}
-                title="NewsMonkey"
-                pagesize={12}
-                apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=general&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
-              />
+              <>
+                <News key={"general"}
+                  title="NewsMonkey"
+                  pagesize={this.pagesize}
+                  apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=general&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
+                />
+              </>
             } />
 
             <Route path='/general' element={
               <News key={"general"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=general&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
@@ -39,7 +42,7 @@ export default class App extends Component {
             <Route path='/business' element={
               <News key={"business"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=business&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
@@ -47,7 +50,7 @@ export default class App extends Component {
             <Route path='/entertainment' element={
               <News key={"entertainment"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=entertainment&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
@@ -55,7 +58,7 @@ export default class App extends Component {
             <Route path='/health' element={
               <News key={"health"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=health&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
@@ -63,7 +66,7 @@ export default class App extends Component {
             <Route path='/science' element={
               <News key={"science"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=science&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
@@ -71,7 +74,7 @@ export default class App extends Component {
             <Route path='/sports' element={
               <News key={"sports"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=sports&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
@@ -79,7 +82,7 @@ export default class App extends Component {
             <Route path='/technology' element={
               <News key={"technology"}
                 title="NewsMonkey"
-                pagesize={12}
+                pagesize={this.pagesize}
                 apikey={`https://newsapi.org/v2/top-headlines?country=${this.country}&category=technology&apiKey=ec7735c4db74410f90ffeffaaa8bd570`}
               />
             } />
