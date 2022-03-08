@@ -6,8 +6,8 @@ export class NewsItem extends Component {
   render() {
     let { newsTitle, newsDescription, imgUrl, newsUrl, author, newsDate, source, color } = this.props;  // Destructing 
     return (
-      <div className="card">
-        <span className={`position-absolute top-0 translate-middle badge rounded-pill bg-${color}`} style={{ left: "90%", zIndex: 1 }}>
+      <div className="card align-items-end">
+        <span className={`position-absolute top-0 badge rounded-pill bg-${color}`}>
           {source}
         </span>
         <img src={imgUrl} className="card-img-top" alt="..." />
