@@ -8,19 +8,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export class News extends Component {
 
   static defaultProps = {
-    title: "NewsMonkey",
+    title: 'NewsMonkey',
     pagesize: 12,
-    apiUrl: `https://newsapi.org/v2/top-headlines?country=${this.country}&category=general&apikey=${this.API_KEY}`,
-    badgeColor: "dark",
-    country: "in"
+    badgeColor: 'dark',
+    country: 'in'         //  Country is set to India as a Default
   }
 
   static propTypes = {
     title: PropTypes.string,
+    API_KEY: PropTypes.string,
+    country: PropTypes.string,
+    category: PropTypes.string,
     pagesize: PropTypes.number,
-    apiUrl: PropTypes.string,
     badgeColor: PropTypes.string,
-    country: PropTypes.string
+    UpdateProgressBar: PropTypes.func
   }
 
   capitalizeFirstLetter(string) {
@@ -30,8 +31,8 @@ export class News extends Component {
   // constructor declartion
   constructor(props) { // order is 1st means it will come first in the console
     super(props) // super() to run constructor
-    console.log("Hello I am Constructor from NewsItem");
-    document.title = `${this.capitalizeFirstLetter(this.props.category)} - ${this.props.title}`
+    // console.log("Hello I am Constructor from NewsItem");
+    document.title = `${this.capitalizeFirstLetter(this.props.category)} - ${this.props.title}` //  Give Props to Constructor - To use it here!
     this.state = {  //  state()
       articles: [],
       loading: false,
@@ -41,31 +42,31 @@ export class News extends Component {
   }
 
   async updataNews() {
+    this.props.UpdateProgressBar(20); //  Updating - Top Progress Bar
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=${this.props.API_KEY}&page=${this.state.page}&pageSize=${this.props.pagesize}`
-    // let url = `${this.props.apiUrl}&page=${this.state.page}&pageSize=${this.props.pagesize}`
+    this.props.UpdateProgressBar(40); //  Updating - Top Progress Bar
     this.setState({ loading: true });
     let data = await fetch(url);
+    this.props.UpdateProgressBar(60); //  Updating - Top Progress Bar
     let parsedData = await data.json();
+    this.props.UpdateProgressBar(85); //  Updating - Top Progress Bar
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       loading: false,
     })
-    // console.log(parsedData);
+    this.props.UpdateProgressBar(100);//  Updating - Top Progress Bar
     console.log(url);
-    // console.log(this.state.page);
   }
 
   async componentDidMount() {
-    console.log("cmd"); // order is 3rd means it will come last in the console
+    // console.log("cmd"); // order is 3rd means it will come last in the console
     this.updataNews();
-    console.log(this.state.page);
   }
 
   fetchMoreData = async () => {
     this.setState({ page: this.state.page + 1 })
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=${this.props.API_KEY}&page=${this.state.page}&pageSize=${this.props.pagesize}`
-    // let url = `${this.props.apiUrl}&page=${this.state.page}&pageSize=${this.props.pagesize}`
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({
@@ -77,7 +78,7 @@ export class News extends Component {
     // console.log("render");  // order is 2nd means it will come second in the console
     return (
       <>
-        <h1 className='my-5 text-center'>{this.props.title} - {this.capitalizeFirstLetter(this.props.category)} Top Headlines</h1>
+        <h1 className='my-5 text-center text-capitalize'>{this.props.title} - {this.props.category} Top Headlines</h1>
         {/* show loading only if it is true in state; */}
         {this.state.loading && <Spinner />}
         <InfiniteScroll

@@ -1,10 +1,23 @@
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export class NewsItem extends Component {
 
+  static propTypes = {
+    newsTitle: PropTypes.string,
+    newsDescription: PropTypes.string,
+    imgUrl: PropTypes.string,
+    newsUrl: PropTypes.string,
+    author: PropTypes.string,
+    newsDate: PropTypes.string,
+    source: PropTypes.string,
+    color: PropTypes.string
+  }
+
   render() {
     let { newsTitle, newsDescription, imgUrl, newsUrl, author, newsDate, source, color } = this.props;  // Destructing 
+
     return (
       <div className="card align-items-end">
         <span className={`position-absolute top-0 badge rounded-pill bg-${color}`}>

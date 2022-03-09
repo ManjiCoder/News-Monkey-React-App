@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export default class Navbar extends Component {
-  static defaultProps = {
-    title: "NewsMonkey",
-  }
+
   static propTypes = {
     title: PropTypes.string,
   }
@@ -30,6 +28,11 @@ export default class Navbar extends Component {
               <li className="nav-item"><Link className="nav-link" to="/sports">sports</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/technology">technology</Link></li>
             </ul>
+
+            <form className="d-flex">
+              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+              <button className="btn btn-outline-success" type="submit" >Search</button>
+            </form>
           </div>
         </div>
       </nav>
