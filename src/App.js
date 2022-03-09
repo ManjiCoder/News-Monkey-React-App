@@ -14,8 +14,7 @@ import LoadingBar from 'react-top-loading-bar'
 
 export default class App extends Component {
   pagesize = 40;
-  // API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"; //  My ApiKey
-  API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; //  My ApiKey
+  API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
   state = ({ progress: 0 })
   setProgress = (UpdateProgress) => {
     this.setState({ progress: UpdateProgress })
@@ -31,7 +30,6 @@ export default class App extends Component {
             color='#f11946'
             height={2.5}
             progress={this.state.progress}
-            UpdateProgressBar={this.setProgress}
           />
 
           <Routes>
