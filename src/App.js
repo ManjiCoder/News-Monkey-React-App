@@ -1,6 +1,7 @@
 import './App.css';
 
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+// import React, { Component } from 'react'
 import Navbar from './Components/Navbar';
 import News from './Components/News';
 
@@ -12,14 +13,22 @@ import {
 
 import LoadingBar from 'react-top-loading-bar'
 
-export default class App extends Component {
-  pagesize = 40;
-  API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
-  state = ({ progress: 0 })
-  setProgress = (UpdateProgress) => {
-    this.setState({ progress: UpdateProgress })
-  }
-  render() {
+function App () {
+  let pagesize = 12;
+  // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
+  let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
+  // let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"  // Other API_KEY
+  const [progress, setProgress] = useState(0)
+  const setProgressBar = (UpdateProgress) => {
+      setProgress(UpdateProgress)
+    }
+  // pagesize = 80;
+  // API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
+  // state = ({ progress: 0 })
+  // setProgress = (UpdateProgress) => {
+  //   this.setState({ progress: UpdateProgress })
+  // }
+
     return (
       <div>
         <Router>
@@ -29,7 +38,8 @@ export default class App extends Component {
           <LoadingBar
             color='#f11946'
             height={2.5}
-            progress={this.state.progress}
+            progress={progress}
+            // progress={this.state.progress}
           />
 
           <Routes>
@@ -37,10 +47,13 @@ export default class App extends Component {
               <News
                 title='NewsMonkey'
                 category={"general"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"dark"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -48,10 +61,13 @@ export default class App extends Component {
               <News key={"general"}
                 title='NewsMonkey'
                 category={"general"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"dark"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -59,10 +75,13 @@ export default class App extends Component {
               <News key={"business"}
                 title='NewsMonkey'
                 category={"business"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"success"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -70,10 +89,13 @@ export default class App extends Component {
               <News key={"entertainment"}
                 title='NewsMonkey'
                 category={"entertainment"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"primary"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -81,10 +103,13 @@ export default class App extends Component {
               <News key={"health"}
                 title='NewsMonkey'
                 category={"health"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"danger"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -92,10 +117,13 @@ export default class App extends Component {
               <News key={"science"}
                 title='NewsMonkey'
                 category={"science"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"info"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -103,10 +131,13 @@ export default class App extends Component {
               <News key={"sports"}
                 title='NewsMonkey'
                 category={"sports"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"success"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -114,10 +145,13 @@ export default class App extends Component {
               <News key={"technology"}
                 title='NewsMonkey'
                 category={"technology"}
-                API_KEY={this.API_KEY}
-                pagesize={this.pagesize}
                 badgeColor={"dark"}
-                UpdateProgressBar={this.setProgress}
+                API_KEY={API_KEY}
+                // API_KEY={this.API_KEY}
+                pagesize={pagesize}
+                // pagesize={this.pagesize}
+                UpdateProgressBar={setProgressBar}
+                // UpdateProgressBar={this.setProgress}
               />
             } />
 
@@ -126,5 +160,7 @@ export default class App extends Component {
         </Router>
       </div>
     )
-  }
+
 }
+
+export default  App

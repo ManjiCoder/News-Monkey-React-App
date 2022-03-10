@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class Spinner extends Component {
-    render() {
+function Spinner() {
         return (
             <div className="container text-center">
                 <div className="spinner-border dark m-4" style={{ width: "60px", height: "60px" }} role="status">
@@ -9,7 +8,6 @@ export class Spinner extends Component {
                 </div>
             </div>
         )
-    }
 }
 
 export default Spinner
