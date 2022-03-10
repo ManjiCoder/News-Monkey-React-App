@@ -4,9 +4,7 @@ import { Link } from "react-router-dom"
 
 
 function Navbar(props) {
-  // static propTypes = {
-  //   title: PropTypes.string,
-  // }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">

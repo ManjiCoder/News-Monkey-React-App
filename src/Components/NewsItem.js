@@ -4,17 +4,6 @@ import PropTypes from 'prop-types'
 
 function NewsItem(props) {
 
-  // static propTypes = {
-  //   newsTitle: PropTypes.string,
-  //   newsDescription: PropTypes.string,
-  //   imgUrl: PropTypes.string,
-  //   newsUrl: PropTypes.string,
-  //   author: PropTypes.string,
-  //   newsDate: PropTypes.string,
-  //   source: PropTypes.string,
-  //   color: PropTypes.string
-  // }
-
   let { newsTitle, newsDescription, imgUrl, newsUrl, author, newsDate, source, color } = props;  // Destructing 
 
   return (
