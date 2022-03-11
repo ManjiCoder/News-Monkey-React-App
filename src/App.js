@@ -21,7 +21,7 @@ function App() {
   const setProgressBar = (UpdateProgress) => {
     setProgress(UpdateProgress)
   }
-  
+
   return (
     <div>
       <Router>
@@ -30,7 +30,7 @@ function App() {
         {/* Top Loading Bar */}
         <LoadingBar
           color='#f11946'
-          height={2.5}
+          height={3}
           progress={progress}
         />
 

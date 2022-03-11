@@ -30,17 +30,19 @@ function News(props) {
     setTotalResults(parsedData.totalResults)
     setLoading(false)
     props.UpdateProgressBar(100);//  Updating - Top Progress Bar
-    console.log(url);
-    console.log(page);
+    // console.log(url);  //  For Development Only
+    // console.log(page); //  For Development Only
   }
 
   useEffect(() => {
-    updataNews()
+    updataNews();
+    // eslint-disable-next-line
   }, [])
 
   const fetchMoreData = async () => {
+    // Url Takes Time In Miliseconds To Load, So SetPage(page + 1) Is In Next Line From Url
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize}`
     setPage(page + 1)
-    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`
     let data = await fetch(url);
     let parsedData = await data.json();
     setArticles(articles.concat(parsedData.articles))
@@ -48,11 +50,9 @@ function News(props) {
     console.log(page);
   };
 
-
-  // console.log("render");  // order is 2nd means it will come second in the console
   return (
     <>
-      <h1 className='my-5 text-center text-capitalize'>{props.title} - {props.category} Top Headlines</h1>
+      <h1 className='text-center text-capitalize' style={{ marginTop: '80px', marginBottom: '40px' }}>{props.title} - {props.category} Top Headlines</h1>
       {/* show loading only if it is true in state; */}
       {loading && <Spinner />}
       <InfiniteScroll
