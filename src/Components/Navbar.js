@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom"
 
 
 function Navbar(props) {
+  const [searchText, setSearchText] = useState('')
+  const handleOnChange = (e) => {
+    setSearchText(e.target.value)
+    console.log(e.target.value);
+  }
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -23,6 +28,11 @@ function Navbar(props) {
             <li className="nav-item"><Link className="nav-link" to="/sports">sports</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/technology">technology</Link></li>
           </ul>
+
+          <form className="d-flex">
+            <input className="form-control me-2" type="text" value={searchText} onChange={handleOnChange} placeholder="Search" aria-label="Search" />
+            <button disabled={searchText.length === 0} className="btn btn-outline-success" type="button" onClick={()=>props.getSearchText(searchText)} >Search</button>
+          </form>
         </div>
       </div>
     </nav>
@@ -32,4 +42,5 @@ function Navbar(props) {
 export default Navbar
 Navbar.propTypes = {
   title: PropTypes.string,
+  getSearchText:PropTypes.func
 }

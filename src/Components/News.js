@@ -20,6 +20,7 @@ function News(props) {
   const updataNews = async () => {
     props.UpdateProgressBar(20); //  Updating - Top Progress Bar
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`
+    // let url = `https://newsapi.org/v2/everything?q=tesla&from=2022-02-11&sortBy=publishedAt&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`
     props.UpdateProgressBar(40); //  Updating - Top Progress Bar
     setLoading(true)
     let data = await fetch(url);
@@ -34,6 +35,8 @@ function News(props) {
     // console.log(page); //  For Development Only
   }
 
+  // this useEffect will run once
+  // similar to componentDidMount()
   useEffect(() => {
     updataNews();
     // eslint-disable-next-line
@@ -52,7 +55,7 @@ function News(props) {
 
   return (
     <>
-      <h1 className='text-center text-capitalize' style={{ marginTop: '80px', marginBottom: '40px' }}>{props.title} - {props.category} Top Headlines</h1>
+      <h1 className='text-center text-capitalize' style={{ marginTop: '80px', marginBottom: '40px' }}>{props.title} - {props.category} Top Headlines </h1>
       {/* show loading only if it is true in state; */}
       {loading && <Spinner />}
       <InfiniteScroll
