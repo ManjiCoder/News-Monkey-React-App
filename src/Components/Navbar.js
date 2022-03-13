@@ -7,7 +7,10 @@ function Navbar(props) {
   const [searchText, setSearchText] = useState('')
   const handleOnChange = (e) => {
     setSearchText(e.target.value)
-    console.log(e.target.value);
+    // console.log(e.target.value);
+  }
+  const handleOnClick = () => {
+    console.log('click '+ searchText);
   }
 
   return (
@@ -22,7 +25,6 @@ function Navbar(props) {
             <li className="nav-item"><Link className="nav-link" aria-current="page" to="/">Home</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/business">business</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/entertainment">entertainment</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/general">general</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/health">health</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/science">science</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/sports">sports</Link></li>
@@ -31,7 +33,7 @@ function Navbar(props) {
 
           <form className="d-flex">
             <input className="form-control me-2" type="text" value={searchText} onChange={handleOnChange} placeholder="Search" aria-label="Search" />
-            <button disabled={searchText.length === 0} className="btn btn-outline-success" type="button" onClick={()=>props.getSearchText(searchText)} >Search</button>
+            <button disabled={searchText.length === 0} className="btn btn-outline-success" type="button" onClick={handleOnClick} >Search</button>
           </form>
         </div>
       </div>
