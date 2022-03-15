@@ -17,8 +17,8 @@ import LoadingBar from 'react-top-loading-bar'
 function App() {
   let pagesize = 100;
   let country = 'in'
-  // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
-  let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
+  let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
+  // let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
   // let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"  // Other API_KEY
   const [progress, setProgress] = useState(0)
   const setProgressBar = (UpdateProgress) => {
