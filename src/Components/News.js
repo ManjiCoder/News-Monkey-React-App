@@ -18,18 +18,35 @@ function News(props) {
   document.title = `${capitalizeFirstLetter(props.category)} - ${props.title}` //  Give Props to Constructor - To use it here!
 
   const updataNews = async () => {
-    props.UpdateProgressBar(20); //  Updating - Top Progress Bar
+    props.UpdateProgressBar(20);
     let url = `${props.url}&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`
-    props.UpdateProgressBar(40); //  Updating - Top Progress Bar
-    setLoading(true)
-    let data = await fetch(url);
-    props.UpdateProgressBar(60); //  Updating - Top Progress Bar
-    let parsedData = await data.json();
-    props.UpdateProgressBar(85); //  Updating - Top Progress Bar
-    setArticles(parsedData.articles)
-    setTotalResults(parsedData.totalResults)
-    setLoading(false)
-    props.UpdateProgressBar(100);//  Updating - Top Progress Bar
+    props.UpdateProgressBar(40);
+    await fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          console.log('res.ok: ' + res.ok);
+          props.UpdateProgressBar(60);
+          return  res.json()
+        }
+        else {
+          console.log('res.ok: ' + res.ok);
+        }
+      })
+      .then(
+        (parsedData) => {
+          setLoading(true);
+          props.UpdateProgressBar(85);
+          setArticles(parsedData.articles)
+          setTotalResults(parsedData.totalResults)
+          setLoading(false)
+          props.UpdateProgressBar(100);
+        }
+      )
+      .catch((err) => {
+        console.warn('Something went wrong.. err ' + err)
+        // return <h1>Something went wrong.</h1>
+
+      })
     console.log(url);  //  For Development Only
     // console.log(page); //  For Development Only
   }
@@ -44,10 +61,34 @@ function News(props) {
     let url = `${props.url}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize}`
     // let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize}`
     setPage(page + 1)
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    setArticles(articles.concat(parsedData.articles))
-    setTotalResults(parsedData.totalResults)
+    // let data = await fetch(url);
+    // let parsedData = await data.json();
+    // setArticles(articles.concat(parsedData.articles))
+    // setTotalResults(parsedData.totalResults)
+    await fetch(url)
+    .then((res) => {
+      if (res.ok) {
+        console.log('res.ok: ' + res.ok);
+        props.UpdateProgressBar(60);
+        return  res.json()
+      }
+      else {
+        console.log('res.ok: ' + res.ok);
+      }
+    })
+    .then(
+      (parsedData) => {
+        props.UpdateProgressBar(85);
+        setArticles(articles.concat(parsedData.articles))
+        setTotalResults(parsedData.totalResults)
+        props.UpdateProgressBar(100);
+      }
+    )
+    .catch((err) => {
+      console.warn('Something went wrong.. err ' + err)
+      // return <h1>Something went wrong.</h1>
+
+    })
     console.log(url);
     console.log(page);
   };
@@ -84,8 +125,7 @@ function News(props) {
       </InfiniteScroll>
 
     </>
-  )
-
+  );
 }
 News.defaultProps = {
   title: 'NewsMonkey',
