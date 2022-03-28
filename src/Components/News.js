@@ -95,7 +95,7 @@ function News(props) {
 
   return (
     <>
-      <h1 className='text-center text-capitalize' style={{ marginTop: '80px', marginBottom: '40px' }}>{props.title} - {props.category} Top Headlines</h1>
+      <h1 className='text-center text-capitalize' style={{"margin":"37px 0"}}>{props.title} - {props.category} Top Headlines</h1>
       {/* show loading only if it is true in state; */}
       {loading && <Spinner />}
       <InfiniteScroll
