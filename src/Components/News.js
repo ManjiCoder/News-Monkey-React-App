@@ -59,17 +59,11 @@ function News(props) {
   const fetchMoreData = async () => {
     // Url Takes Time In Miliseconds To Load, So SetPage(page + 1) Is In Next Line From Url
     let url = `${props.url}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize}`
-    // let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize}`
     setPage(page + 1)
-    // let data = await fetch(url);
-    // let parsedData = await data.json();
-    // setArticles(articles.concat(parsedData.articles))
-    // setTotalResults(parsedData.totalResults)
     await fetch(url)
     .then((res) => {
       if (res.ok) {
         console.log('res.ok: ' + res.ok);
-        props.UpdateProgressBar(60);
         return  res.json()
       }
       else {
@@ -78,10 +72,8 @@ function News(props) {
     })
     .then(
       (parsedData) => {
-        props.UpdateProgressBar(85);
         setArticles(articles.concat(parsedData.articles))
         setTotalResults(parsedData.totalResults)
-        props.UpdateProgressBar(100);
       }
     )
     .catch((err) => {

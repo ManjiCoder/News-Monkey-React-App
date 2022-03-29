@@ -42,10 +42,11 @@ function App() {
   const [searchText, setsearchText] = useState('')
   const handleOnChange = (e) => {
     setsearchText(e.target.value)
+    console.log("change is fire");
   }
   const handleOnClick = () => {
     // console.log(typeof (searchText))
-    console.log(searchText);
+    console.log(searchText + " clicked");
   }
 
   return (
@@ -69,9 +70,9 @@ function App() {
                 <li className="nav-item"><NavLink className="nav-link" to="/sports">sports</NavLink></li>
                 <li className="nav-item"><NavLink className="nav-link" to="/technology">technology</NavLink></li>
               </ul>
-              <form className="d-flex mb-2 mb-lg-0">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchText.toString()} onChange={handleOnChange} />
-                <button disabled={searchText.length === 0} className="btn btn-outline-success" type="button" onClick={handleOnClick}><Link className='text-decoration-none text-light' to={searchText}>Search</Link></button>
+              <form className="d-flex mb-2 mb-lg-0" onSubmit={(event) => { event.preventDefault() }}>
+                <input className="form-control me-2" id='search' type="search" placeholder="Search" aria-label="Search" value={searchText} onChange={handleOnChange} />
+                <button disabled={searchText.length === 0} className="btn btn-outline-success" type="submit" onClick={handleOnClick}><Link className='text-decoration-none text-light' to={searchText}>Search</Link></button>
               </form>
             </div>
           </div>
@@ -97,15 +98,15 @@ function App() {
             />
           } />
 
-          <Route path={`/${searchText}`} element={
+          <Route path={`/${searchText.replaceAll(" ", "%20")}`} element={
             <News key={"searchText"}
               title={`NewsMonkey`}
-              category={searchText}
+              category={searchText.toLowerCase()}
               badgeColor={"primary"}
               API_KEY={API_KEY}
               pagesize={pagesize}
               UpdateProgressBar={setProgressBar}
-              url={`https://newsapi.org/v2/everything?q=${searchText}&from=${todayDate}&sortBy=publishedAt`}
+              url={`https://newsapi.org/v2/everything?q=${searchText.replaceAll(" ", "%20")}&from=${todayDate}&sortBy=publishedAt`}
             />
           } />
 
