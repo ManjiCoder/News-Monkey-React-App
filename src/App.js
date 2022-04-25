@@ -20,12 +20,12 @@ function App() {
   let pagesize = 20;
   let country = 'in'
   // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
-  let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
+   let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
   // let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"  // Other API_KEY
 
   // Creating Date
   let date = new Date();
-  let date_ = date.getDate() - 1;
+  let date_ = date.getDate();
   let month = date.getMonth();
   let year = date.getFullYear();
 
@@ -42,7 +42,7 @@ function App() {
   const [searchText, setsearchText] = useState('')
   const handleOnChange = (e) => {
     setsearchText(e.target.value)
-    console.log("change is fire");
+    //console.log("change is fire");
   }
   const handleOnClick = () => {
     // console.log(typeof (searchText))
