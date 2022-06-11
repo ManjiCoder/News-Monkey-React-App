@@ -48,7 +48,7 @@ function News(props) {
 
       })
     console.log(url);  //  For Development Only
-    // console.log(page); //  For Development Only
+    console.log(page); //  For Development Only
   }
 
   useEffect(() => {
@@ -63,11 +63,11 @@ function News(props) {
     await fetch(url)
     .then((res) => {
       if (res.ok) {
-        console.log('res.ok: ' + res.ok);
+        console.log('res ok: ' + res.status);
         return  res.json()
       }
       else {
-        console.log('res.ok: ' + res.ok);
+        console.log('res ok: ' + res.status);
       }
     })
     .then(
@@ -78,11 +78,11 @@ function News(props) {
     )
     .catch((err) => {
       console.warn('Something went wrong.. err ' + err)
-      // return <h1>Something went wrong.</h1>
+      // {<h1>Something went wrong.</h1>}
 
     })
-    // console.log(url);
-    // console.table(articles);
+    console.log(url);
+    console.log(page);
   };
 // console.table(props)
   return (

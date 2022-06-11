@@ -15,3 +15,26 @@ code {
 .infinite-scroll-component {
   overflow: hidden !important;
 }
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 50px;
+  width: 50px;
+  padding-bottom: 10px;
+  font-size: 45px;
+  background: #212529;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  box-shadow: 0 5px 10px #ccc;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-to-top:hover {
+  background: #212529cf;
+}
