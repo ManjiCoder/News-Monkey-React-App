@@ -81,10 +81,10 @@ function News(props) {
       // return <h1>Something went wrong.</h1>
 
     })
-    console.log(url);
-    console.log(page);
+    // console.log(url);
+    // console.table(articles);
   };
-
+// console.table(props)
   return (
     <>
       <h1 className='text-center text-capitalize' style={{"margin":"37px 0"}}>{props.title} - {props.category} Top Headlines</h1>
