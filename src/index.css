@@ -16,6 +16,7 @@ code {
   overflow: hidden !important;
 }
 
+/* ScrollToTopBtn Component */
 .back-to-top {
   position: fixed;
   bottom: 20px;
@@ -37,4 +38,45 @@ code {
 
 .back-to-top:hover {
   background: #212529cf;
+}
+
+/* Image Component */
+.emoji {
+  height: 500px;
+  width: fit-content;
+}
+
+.showError {
+  margin: 37px 0px;
+  margin-top: -54px;
+}
+
+@media only screen and (max-width:505px) {
+  .emoji {
+    height: 400px;
+  }
+
+  .showError {
+    margin-top: -40px;
+  }
+}
+
+@media only screen and (max-width:400px) {
+  .emoji {
+    height: 300px;
+  }
+
+  .showError {
+    margin-top: -37px;
+  }
+}
+
+@media only screen and (max-width:300px) {
+  .emoji {
+    height: 290px;
+  }
+
+  .showError {
+    margin-top: -35px;
+  }
 }

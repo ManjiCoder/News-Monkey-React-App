@@ -1,93 +1,108 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-import NewsItem from './NewsItem'
-import Spinner from './Spinner'
-import PropTypes from 'prop-types'
-
+import NewsItem from "./NewsItem";
+import Spinner from "./Spinner";
+import PropTypes from "prop-types";
+import Emoji from "./Images/emoji.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function News(props) {
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  };
 
-  const [articles, setArticles] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [page, setPage] = useState(1)
-  const [totalResults, setTotalResults] = useState(0)
-  document.title = `${capitalizeFirstLetter(props.category)} - ${props.title}` //  Give Props to Constructor - To use it here!
+  // const [status, setStatus] = useState("ok")
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(null); // Null is Important because it prevent from no data found while fetching
+ 
+  // To Remove Catergory 
+  if (totalResults === 0) {
+    document.title = `${props.title}`;
+  } else {
+    document.title = `${capitalizeFirstLetter(props.category)} ${props.title}`;
+  }
 
   const updataNews = async () => {
     props.UpdateProgressBar(20);
-    let url = `${props.url}&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`
+    let url = `${props.url}&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`;
     props.UpdateProgressBar(40);
     await fetch(url)
       .then((res) => {
         if (res.ok) {
-          console.log('res.ok: ' + res.ok);
+          // console.log("res.ok: " + res.ok); //  For Development Only
           props.UpdateProgressBar(60);
-          return  res.json()
-        }
-        else {
-          console.log('res.ok: ' + res.ok);
+          return res.json();
+        } else {
+          // console.log("res.ok: " + res.ok); //  For Development Only
         }
       })
-      .then(
-        (parsedData) => {
-          setLoading(true);
-          props.UpdateProgressBar(85);
-          setArticles(parsedData.articles)
-          setTotalResults(parsedData.totalResults)
-          setLoading(false)
-          props.UpdateProgressBar(100);
-        }
-      )
+      .then((parsedData) => {
+        setLoading(true);
+        props.UpdateProgressBar(85);
+        setArticles(parsedData.articles);
+        setTotalResults(parsedData.totalResults);
+        setLoading(false);
+        props.UpdateProgressBar(100);
+      })
       .catch((err) => {
-        console.warn('Something went wrong.. err ' + err)
-        // return <h1>Something went wrong.</h1>
-
-      })
-    console.log(url);  //  For Development Only
-    console.log(page); //  For Development Only
-  }
+        console.warn("Something went wrong.. err " + err);
+      });
+    // console.log(url); //  For Development Only
+    // console.log(page); //  For Development Only
+  };
 
   useEffect(() => {
     updataNews();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const fetchMoreData = async () => {
     // Url Takes Time In Miliseconds To Load, So SetPage(page + 1) Is In Next Line From Url
-    let url = `${props.url}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize}`
-    setPage(page + 1)
+    let url = `${props.url}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize
+      }`;
+    setPage(page + 1);
     await fetch(url)
-    .then((res) => {
-      if (res.ok) {
-        console.log('res ok: ' + res.status);
-        return  res.json()
-      }
-      else {
-        console.log('res ok: ' + res.status);
-      }
-    })
-    .then(
-      (parsedData) => {
-        setArticles(articles.concat(parsedData.articles))
-        setTotalResults(parsedData.totalResults)
-      }
-    )
-    .catch((err) => {
-      console.warn('Something went wrong.. err ' + err)
-      // {<h1>Something went wrong.</h1>}
-
-    })
-    console.log(url);
-    console.log(page);
-  };
-// console.table(props)
+      .then((res) => {
+        if (res.ok) {
+          // console.log("res ok: " + res.status); //  For Development Only
+          return res.json();
+        } else {
+          // console.log("res ok: " + res.status); //  For Development Only
+        }
+      })
+      .then((parsedData) => {
+        setArticles(articles.concat(parsedData.articles));
+        setTotalResults(parsedData.totalResults);
+      })
+      .catch((err) => {
+        console.warn("Something went wrong.. err " + err);
+        // {<h1>Something went wrong.</h1>}
+      });
+      // console.log(url);  //  For Development Only
+      // console.log(page); //  For Development Only
+      // console.log(articles.length); //  For Development Only
+      // if (page > 4) {
+      //   setLoading(false)
+      // }
+    };
+  // console.table(props)   //  For Development Only
   return (
     <>
-      <h1 className='text-center text-capitalize' style={{"margin":"37px 0"}}>{props.title} - {props.category} Top Headlines</h1>
+      {totalResults === 0 ? (
+        <div style={{ display: "grid", placeItems: "center" }}>
+          <img className="emoji" src={Emoji} alt="No Data Found" />
+          <h1 className="showError text-center text-capitalize">
+            No Data Found
+          </h1>
+        </div>
+      ) : (
+        <h1 className="text-center text-capitalize" style={{ margin: "37px 0" }}>
+          {props.title} - {props.category} Top Headlines
+        </h1>
+      )}
+      
       {/* show loading only if it is true in state; */}
       {loading && <Spinner />}
       <InfiniteScroll
@@ -99,32 +114,39 @@ function News(props) {
         <div className="container">
           <div className="row d-flex justify-content-center">
             {articles.map((element) => {
-              return <div className="col-md-4 my-2" key={element.url}>
-                <NewsItem
-                  newsTitle={element.title ? element.title : "null"}
-                  newsDescription={element.description ? element.description : "null"}
-                  imgUrl={!element.urlToImage ? "https://images.livemint.com/img/2022/02/21/600x338/Cygnus_spacecraft_1645444527769_1645444527963.jpg" : element.urlToImage}
-                  newsUrl={element.url}
-                  author={element.author ? element.author : "Unknown"}
-                  newsDate={new Date(element.publishedAt).toGMTString()}
-                  source={element.source.name}
-                  color={props.badgeColor}
-                />
-              </div>
+              return (
+                <div className="col-md-4 my-2" key={element.url}>
+                  <NewsItem
+                    newsTitle={element.title ? element.title : "null"}
+                    newsDescription={
+                      element.description ? element.description : "null"
+                    }
+                    imgUrl={
+                      !element.urlToImage
+                        ? "https://images.livemint.com/img/2022/02/21/600x338/Cygnus_spacecraft_1645444527769_1645444527963.jpg"
+                        : element.urlToImage
+                    }
+                    newsUrl={element.url}
+                    author={element.author ? element.author : "Unknown"}
+                    newsDate={new Date(element.publishedAt).toGMTString()}
+                    source={element.source.name}
+                    color={props.badgeColor}
+                  />
+                </div>
+              );
             })}
           </div>
         </div>
       </InfiniteScroll>
-
     </>
   );
 }
 News.defaultProps = {
-  title: 'NewsMonkey',
+  title: "NewsMonkey",
   pagesize: 12,
-  badgeColor: 'dark',
-  country: 'in'         //  Country is set to India as a Default
-}
+  badgeColor: "dark",
+  country: "in", //  Country is set to India as a Default
+};
 
 News.propTypes = {
   title: PropTypes.string,
@@ -134,7 +156,7 @@ News.propTypes = {
   pagesize: PropTypes.number,
   badgeColor: PropTypes.string,
   UpdateProgressBar: PropTypes.func,
-  url: PropTypes.string
-}
+  url: PropTypes.string,
+};
 
-export default News
+export default News;
