@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
-import Emoji from "../Images/emoji.png";
 import InfiniteScroll from "react-infinite-scroll-component";
+import SomethingWentWrong from "./SomethingWentWrong";
+import NoDataFound from "./NoDataFound";
+import HeadingInfo from "./HeadingInfo";
 
 function News(props) {
   const capitalizeFirstLetter = (string) => {
@@ -48,7 +49,7 @@ function News(props) {
       setLoading(false);
       setStatus(response.status);
       props.UpdateProgressBar(100);
-      // console.log(articles.length); //  For Development Only
+      console.log(articles.length); //  For Development Only
     }
     console.log(url); //  For Development Only
     // console.log(page); //  For Development Only
@@ -65,7 +66,7 @@ function News(props) {
       props.pagesize
     }`;
     setPage(page + 1);
-    setLoading(true)
+    setLoading(true);
     let data = await fetch(url);
     let response = await data.json();
     // console.log(response); // For Development Only
@@ -82,46 +83,29 @@ function News(props) {
       setStatus(response.status);
     }
 
-    // console.log(url);  //  For Development Only
+    console.log(url); //  For Development Only
     // console.log(page); //  For Development Only
-    // console.log(articles.length); //  For Development Only
+    console.log(articles.length); //  For Development Only
   };
   // console.table(props)   //  For Development Only
   return (
     <>
       {/* For Showing No Data Found */}
-      {totalResults === 0 && status === "ok" && (
-        <div style={{ display: "grid", placeItems: "center" }}>
-          <img className="emoji" src={Emoji} alt="No Data Found" />
-          <h1 className="showError text-center text-capitalize">
-            No Data Found
-          </h1>
-        </div>
-      )}
+      {totalResults === 0 && status === "ok" && <NoDataFound />}
 
       {/* For Showing Error */}
-      {status === "error" && (
-        <h1 className="somethingwentwrong">
-          Something Went Wrong..
-          <details style={{ fontSize: "1rem" }}>{error}</details>
-        </h1>
-      )}
+      {status === "error" && <SomethingWentWrong error={error} />}
 
       {/* For Showing Heading  */}
       {status === "ok" && articles.length !== 0 && (
-        <h1
-          className="text-center text-capitalize"
-          style={{ margin: "37px 0" }}
-        >
-          {props.title} - {props.category} Top Headlines
-        </h1>
+        <HeadingInfo title={props.title} category={props.category} />
       )}
 
       <InfiniteScroll
         dataLength={articles.length}
-        next={fetchMoreData}
+        next={status === "ok" && articles.length && fetchMoreData}
         // hasMore={articles.length !== totalResults} // This is in working fine,but due to develper plan it fetch only 100 articles.
-        hasMore={articles.length < 100}
+        hasMore={articles.length < 90}
         loader={loading && <Spinner />} // show Spinner only if loading is true in state
       >
         <div className="container">
