@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
-import Emoji from "./Images/emoji.png";
+import Emoji from "../Images/emoji.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function News(props) {
@@ -11,13 +11,14 @@ function News(props) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  // const [status, setStatus] = useState("ok")
+  const [status, setStatus] = useState("");
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(null); // Null is Important because it prevent from no data found while fetching
- 
-  // To Remove Catergory 
+  const [error, setError] = useState(null);
+
+  // To Remove Catergory
   if (totalResults === 0) {
     document.title = `${props.title}`;
   } else {
@@ -28,28 +29,28 @@ function News(props) {
     props.UpdateProgressBar(20);
     let url = `${props.url}&apikey=${props.API_KEY}&page=${page}&pageSize=${props.pagesize}`;
     props.UpdateProgressBar(40);
-    await fetch(url)
-      .then((res) => {
-        if (res.ok) {
-          // console.log("res.ok: " + res.ok); //  For Development Only
-          props.UpdateProgressBar(60);
-          return res.json();
-        } else {
-          // console.log("res.ok: " + res.ok); //  For Development Only
-        }
-      })
-      .then((parsedData) => {
-        setLoading(true);
-        props.UpdateProgressBar(85);
-        setArticles(parsedData.articles);
-        setTotalResults(parsedData.totalResults);
-        setLoading(false);
-        props.UpdateProgressBar(100);
-      })
-      .catch((err) => {
-        console.warn("Something went wrong.. err " + err);
-      });
-    // console.log(url); //  For Development Only
+    let data = await fetch(url);
+    props.UpdateProgressBar(60);
+    let response = await data.json();
+    props.UpdateProgressBar(80);
+    // console.log(response); // For Development Only
+    if (response.status === "error") {
+      console.log(response.message);
+      props.UpdateProgressBar(100);
+      setLoading(false);
+      setStatus(response.status);
+      setError(response.message);
+      // throw Error(response.message);
+    } else {
+      props.UpdateProgressBar(85);
+      setArticles(response.articles);
+      setTotalResults(response.totalResults);
+      setLoading(false);
+      setStatus(response.status);
+      props.UpdateProgressBar(100);
+      // console.log(articles.length); //  For Development Only
+    }
+    console.log(url); //  For Development Only
     // console.log(page); //  For Development Only
   };
 
@@ -60,56 +61,68 @@ function News(props) {
 
   const fetchMoreData = async () => {
     // Url Takes Time In Miliseconds To Load, So SetPage(page + 1) Is In Next Line From Url
-    let url = `${props.url}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${props.pagesize
-      }`;
+    let url = `${props.url}&apikey=${props.API_KEY}&page=${page + 1}&pageSize=${
+      props.pagesize
+    }`;
     setPage(page + 1);
-    await fetch(url)
-      .then((res) => {
-        if (res.ok) {
-          // console.log("res ok: " + res.status); //  For Development Only
-          return res.json();
-        } else {
-          // console.log("res ok: " + res.status); //  For Development Only
-        }
-      })
-      .then((parsedData) => {
-        setArticles(articles.concat(parsedData.articles));
-        setTotalResults(parsedData.totalResults);
-      })
-      .catch((err) => {
-        console.warn("Something went wrong.. err " + err);
-        // {<h1>Something went wrong.</h1>}
-      });
-      // console.log(url);  //  For Development Only
-      // console.log(page); //  For Development Only
-      // console.log(articles.length); //  For Development Only
-      // if (page > 4) {
-      //   setLoading(false)
-      // }
-    };
+    setLoading(true)
+    let data = await fetch(url);
+    let response = await data.json();
+    // console.log(response); // For Development Only
+    if (response.status === "error") {
+      console.log(response.message);
+      setLoading(false);
+      setStatus(response.status);
+      setError(response.message);
+      throw Error(response.message);
+    } else {
+      setArticles(articles.concat(response.articles));
+      setTotalResults(response.totalResults);
+      setLoading(false);
+      setStatus(response.status);
+    }
+
+    // console.log(url);  //  For Development Only
+    // console.log(page); //  For Development Only
+    // console.log(articles.length); //  For Development Only
+  };
   // console.table(props)   //  For Development Only
   return (
     <>
-      {totalResults === 0 ? (
+      {/* For Showing No Data Found */}
+      {totalResults === 0 && status === "ok" && (
         <div style={{ display: "grid", placeItems: "center" }}>
           <img className="emoji" src={Emoji} alt="No Data Found" />
           <h1 className="showError text-center text-capitalize">
             No Data Found
           </h1>
         </div>
-      ) : (
-        <h1 className="text-center text-capitalize" style={{ margin: "37px 0" }}>
+      )}
+
+      {/* For Showing Error */}
+      {status === "error" && (
+        <h1 className="somethingwentwrong">
+          Something Went Wrong..
+          <details style={{ fontSize: "1rem" }}>{error}</details>
+        </h1>
+      )}
+
+      {/* For Showing Heading  */}
+      {status === "ok" && articles.length !== 0 && (
+        <h1
+          className="text-center text-capitalize"
+          style={{ margin: "37px 0" }}
+        >
           {props.title} - {props.category} Top Headlines
         </h1>
       )}
-      
-      {/* show loading only if it is true in state; */}
-      {loading && <Spinner />}
+
       <InfiniteScroll
         dataLength={articles.length}
         next={fetchMoreData}
-        hasMore={articles.length !== totalResults}
-        loader={<Spinner />}
+        // hasMore={articles.length !== totalResults} // This is in working fine,but due to develper plan it fetch only 100 articles.
+        hasMore={articles.length < 100}
+        loader={loading && <Spinner />} // show Spinner only if loading is true in state
       >
         <div className="container">
           <div className="row d-flex justify-content-center">

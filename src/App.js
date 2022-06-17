@@ -9,13 +9,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import LoadingBar from "react-top-loading-bar";
 import ScrollToTopBtn from "./Components/ScrollToTopBtn";
+import Footer from "./Components/Footer";
 
 function App() {
-  let pagesize = 20;
+  let pagesize = 16;
   let country = "in";
   // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
-  let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
-  // let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
+  // let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"  // My API_KEY
+  let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
+  // let API_KEY = "e93da7be7e134c76afa08f33b2b2b9"; // Other API_KEY
 
   // Creating Date
   let date = new Date();
@@ -48,6 +50,21 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={
+              <News
+                title="NewsMonkey"
+                category={""}
+                badgeColor={"dark"}
+                API_KEY={API_KEY}
+                pagesize={pagesize}
+                UpdateProgressBar={setProgressBar}
+                url={`https://newsapi.org/v2/top-headlines?country=${country}&category=general&`}
+              />
+            }
+          />
+
+          <Route
+            path="*"
             element={
               <News
                 title="NewsMonkey"
@@ -176,6 +193,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer title="NewsMonkey"/>
       </Router>
     </div>
   );

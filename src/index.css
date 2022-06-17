@@ -31,9 +31,11 @@ code {
   border-radius: 50%;
   border: none;
   display: flex;
-  box-shadow: 0 5px 10px #ccc;
+  /* box-shadow: 0 5px 10px #ccc; */
+  box-shadow: 0px 2px 6px 1px #ccc;
   justify-content: center;
   align-items: center;
+  z-index: 5;
 }
 
 .back-to-top:hover {
@@ -79,4 +81,66 @@ code {
   .showError {
     margin-top: -35px;
   }
+}
+
+/* News Component */
+.somethingwentwrong{
+  display: grid;
+    width: 80% !important;
+    place-content: center;
+    margin: auto;
+    gap: 1rem;
+    margin-top: 37px;
+}
+.somethingwentwrong details{
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Footer Component */
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: hsl(210deg 11% 15%);
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 1rem 20px;
+  position: relative;
+  bottom: 0px;
+}
+
+#links-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin: 10px auto;
+}
+.footer-links {
+  border: 1px white solid;
+  border-radius: 50%;
+  background: #675f50;
+  padding: 1px;
+  height: 40px;
+  width: 40px;
+}
+
+.footer-links:hover {
+  transition: all ease-out 0.2s;
+  cursor: pointer;
+  background: white;
+}
+
+.copyright {
+  line-height: 2;
+}
+
+#symbol {
+  color: red;
+  all: unset;
 }
