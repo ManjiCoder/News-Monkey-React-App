@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import Navbar from "./Components/Navbar";
 import News from "./Components/News";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import LoadingBar from "react-top-loading-bar";
 import ScrollToTopBtn from "./Components/ScrollToTopBtn";
 import Footer from "./Components/Footer";
+import UseContext from "./Context/Context";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   let pagesize = 16;
   let country = "in";
   // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
-  let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"; // My API_KEY
-  // let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
+  // let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"; // My API_KEY
+  let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
   // let API_KEY = "e93da7be7e134c76afa08f33b2b2b9"; // Wrong API_KEY
 
   // Creating Date
@@ -29,17 +29,12 @@ function App() {
     setProgress(UpdateProgress);
   };
 
-  // For Navbar - Lifting UP State (Passing Data From Child To Parent)
+  // For Navbar - Lifting UP State (Passing Data From Child To Parent) Using useContext
   const [query, setQuery] = useState("");
-  const getQuery = (value) => {
-    setQuery(value);
-    // console.log(value);
-  };
-
   return (
-    <div>
+    <UseContext.Provider value={{ query, setQuery }}>
       <Router>
-        <Navbar title="NewsMonkey" getText={getQuery} />
+        <Navbar title="NewsMonkey" />
         <ScrollToTopBtn />
         {/* Top Loading Bar */}
         <LoadingBar color="#f11946" height={2.5} progress={progress} />
@@ -192,7 +187,7 @@ function App() {
         </Routes>
         <Footer title="NewsMonkey" />
       </Router>
-    </div>
+    </UseContext.Provider>
   );
 }
 

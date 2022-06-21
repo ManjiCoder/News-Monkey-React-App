@@ -36,12 +36,12 @@ function News(props) {
     props.UpdateProgressBar(80);
     // console.log(response); // For Development Only
     if (response.status === "error") {
-      console.log(response.message);
       props.UpdateProgressBar(100);
       setLoading(false);
       setStatus(response.status);
       setError(response.message);
-      // throw Error(response.message);
+      console.error(response.message);
+      throw Error(response.message);
     } else {
       props.UpdateProgressBar(85);
       setArticles(response.articles);
@@ -49,9 +49,9 @@ function News(props) {
       setLoading(false);
       setStatus(response.status);
       props.UpdateProgressBar(100);
-      console.log(articles.length); //  For Development Only
+      // console.log(articles.length); //  For Development Only
     }
-    console.log(url); //  For Development Only
+    // console.log(url); //  For Development Only
     // console.log(page); //  For Development Only
   };
 
@@ -71,10 +71,10 @@ function News(props) {
     let response = await data.json();
     // console.log(response); // For Development Only
     if (response.status === "error") {
-      console.log(response.message);
       setLoading(false);
       setStatus(response.status);
       setError(response.message);
+      console.error(response.message);
       throw Error(response.message);
     } else {
       setArticles(articles.concat(response.articles));
@@ -83,9 +83,9 @@ function News(props) {
       setStatus(response.status);
     }
 
-    console.log(url); //  For Development Only
+    // console.log(url); //  For Development Only
     // console.log(page); //  For Development Only
-    console.log(articles.length); //  For Development Only
+    // console.log(articles.length); //  For Development Only
   };
   // console.table(props)   //  For Development Only
   return (
@@ -93,11 +93,10 @@ function News(props) {
       {/* For Showing No Data Found */}
       {totalResults === 0 && status === "ok" && <NoDataFound />}
 
-      {/* For Showing Error */}
-      {status === "error" && <SomethingWentWrong error={error} />}
-
-      {/* For Showing Heading  */}
-      {status === "ok" && articles.length !== 0 && (
+      {/* For Showing Heading OR For Showing Error */}
+      {status === "error" && articles.length === 0 ? (
+        <SomethingWentWrong error={error} />
+      ) : (
         <HeadingInfo title={props.title} category={props.category} />
       )}
 
@@ -105,7 +104,7 @@ function News(props) {
         dataLength={articles.length}
         next={status === "ok" && articles.length && fetchMoreData}
         // hasMore={articles.length !== totalResults} // This is in working fine,but due to develper plan it fetch only 100 articles.
-        hasMore={articles.length < 90}
+        hasMore={articles.length < 200}
         loader={loading && <Spinner />} // show Spinner only if loading is true in state
       >
         <div className="container">
