@@ -104,7 +104,7 @@ function News(props) {
         dataLength={articles.length}
         next={status === "ok" && articles.length && fetchMoreData}
         // hasMore={articles.length !== totalResults} // This is in working fine,but due to develper plan it fetch only 100 articles.
-        hasMore={articles.length < 200}
+        hasMore={articles.length < 90}
         loader={loading && <Spinner />} // show Spinner only if loading is true in state
       >
         <div className="container">

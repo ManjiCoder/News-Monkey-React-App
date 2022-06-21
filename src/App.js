@@ -4,7 +4,7 @@ import News from "./Components/News";
 import LoadingBar from "react-top-loading-bar";
 import ScrollToTopBtn from "./Components/ScrollToTopBtn";
 import Footer from "./Components/Footer";
-import UseContext from "./Context/Context";
+import UseContext from "./Context/UseContext";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 

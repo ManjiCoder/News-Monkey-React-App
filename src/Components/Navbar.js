@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink } from "react-router-dom";
-import UseContext from '../Context/Context';
+import UseContext from '../Context/UseContext';
 
 
 function Navbar(props) {
