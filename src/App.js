@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import UseContext from "./Context/UseContext";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavbarTailwind from "./Components/NavbarTailwind";
 
 function App() {
   let pagesize = 16;
@@ -34,7 +35,8 @@ function App() {
   return (
     <UseContext.Provider value={{ query, setQuery }}>
       <Router>
-        <Navbar title="NewsMonkey" />
+        <NavbarTailwind title="NewsMonkey" />
+        {/* <Navbar title="NewsMonkey" /> */}
         <ScrollToTopBtn />
         {/* Top Loading Bar */}
         <LoadingBar color="#f11946" height={2.5} progress={progress} />
