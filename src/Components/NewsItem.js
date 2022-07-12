@@ -1,26 +1,62 @@
-
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
 function NewsItem(props) {
-
-  let { newsTitle, newsDescription, imgUrl, newsUrl, author, newsDate, source, color } = props;  // Destructing 
+  let {
+    newsTitle,
+    newsDescription,
+    imgUrl,
+    newsUrl,
+    author,
+    newsDate,
+    source,
+    color,
+  } = props; // Destructing
 
   return (
-    <div className="card align-items-end">
-      <span className={`position-absolute top-0 badge rounded-pill bg-${color}`}>
+    <div className="max-w-screen-sm 2xl:max-w-md  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col">
+      <span
+        className={`absolute self-end text-left text-white font-semibold px-2 py-0.5 rounded-full text-xs ${color}`}
+      >
         {source}
       </span>
-      <img src={imgUrl} className="card-img-top" alt="..." />
-      <div className="card-body">
-        <h5 className="card-title">{newsTitle}</h5>
-        <p className="card-text">{newsDescription}</p>
-        <p className="card-text"><small className="text-muted">By {author} on {newsDate}</small></p>
-        <a href={newsUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-dark" >Read more</a>
+      <a href={imgUrl} target="_blank" rel="noreferrer">
+        <img className="rounded-t-lg" src={imgUrl} alt="articles" />
+      </a>
+      <div className="p-5">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {newsTitle}
+        </h5>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          {newsDescription}
+        </p>
+        <p className="text-sm text-gray-500 my-2 dark:text-gray-400">
+          By {author} on {newsDate}
+        </p>
+
+        <a
+          href={newsUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Read more
+          <svg
+            className="ml-2 -mr-1 w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </a>
       </div>
     </div>
-  )
-
+  );
 }
 NewsItem.propTypes = {
   newsTitle: PropTypes.string,
@@ -30,6 +66,6 @@ NewsItem.propTypes = {
   author: PropTypes.string,
   newsDate: PropTypes.string,
   source: PropTypes.string,
-  color: PropTypes.string
-}
-export default NewsItem
+  color: PropTypes.string,
+};
+export default NewsItem;

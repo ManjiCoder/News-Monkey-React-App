@@ -96,8 +96,10 @@ function News(props) {
       {/* For Showing Heading OR For Showing Error */}
       {status === "error" && articles.length === 0 ? (
         <SomethingWentWrong error={error} />
-      ) : (
+      ) : status === "ok" && articles.length !== 0 ? (
         <HeadingInfo title={props.title} category={props.category} />
+      ) : (
+        ""
       )}
 
       <InfiniteScroll
@@ -107,11 +109,11 @@ function News(props) {
         hasMore={articles.length < 90}
         loader={loading && <Spinner />} // show Spinner only if loading is true in state
       >
-        <div className="container">
-          <div className="row d-flex justify-content-center">
+        <div className="flex justify-center p-8">
+          <div className="w-screen grid gap-4 lg:gap-x-8 lg:gap-y-16 lg:justify-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {articles.map((element) => {
               return (
-                <div className="col-md-4 my-2" key={element.url}>
+                <div key={element.url}>
                   <NewsItem
                     newsTitle={element.title ? element.title : "null"}
                     newsDescription={

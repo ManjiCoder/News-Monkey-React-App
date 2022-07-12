@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./Components/Navbar";
+// import Navbar from "./Components/Navbar";
 import News from "./Components/News";
 import LoadingBar from "react-top-loading-bar";
 import ScrollToTopBtn from "./Components/ScrollToTopBtn";
@@ -13,9 +13,9 @@ function App() {
   let pagesize = 16;
   let country = "in";
   // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
-  // let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"; // My API_KEY
-  let API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
-  // let API_KEY = "e93da7be7e134c76afa08f33b2b2b9"; // Wrong API_KEY
+  let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"; // My API_KEY
+  API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
+  // API_KEY = "e93da7be7e134c76afa08f33b2b2b9"; // Wrong API_KEY
 
   // Creating Date
   let date = new Date();
@@ -48,7 +48,7 @@ function App() {
               <News
                 title="NewsMonkey"
                 category={""}
-                badgeColor={"dark"}
+                badgeColor={"bg-black"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -63,7 +63,7 @@ function App() {
               <News
                 title="NewsMonkey"
                 category={""}
-                badgeColor={"dark"}
+                badgeColor={"bg-black"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -79,7 +79,7 @@ function App() {
                 key={"business"}
                 title="NewsMonkey"
                 category={"business"}
-                badgeColor={"success"}
+                badgeColor={"bg-violet-800"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -95,7 +95,7 @@ function App() {
                 key={"entertainment"}
                 title="NewsMonkey"
                 category={"entertainment"}
-                badgeColor={"primary"}
+                badgeColor={"bg-lime-600"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -111,7 +111,7 @@ function App() {
                 key={"health"}
                 title="NewsMonkey"
                 category={"health"}
-                badgeColor={"danger"}
+                badgeColor={"bg-red-600"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -127,7 +127,7 @@ function App() {
                 key={"science"}
                 title="NewsMonkey"
                 category={"science"}
-                badgeColor={"info"}
+                badgeColor={"bg-blue-700"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -143,7 +143,7 @@ function App() {
                 key={"sports"}
                 title="NewsMonkey"
                 category={"sports"}
-                badgeColor={"success"}
+                badgeColor={"bg-sky-500"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -159,7 +159,7 @@ function App() {
                 key={"technology"}
                 title="NewsMonkey"
                 category={"technology"}
-                badgeColor={"dark"}
+                badgeColor={"bg-fuchsia-600"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}
@@ -175,7 +175,7 @@ function App() {
                 key={query}
                 title={`NewsMonkey`}
                 category={query.toLowerCase()}
-                badgeColor={"primary"}
+                badgeColor={"bg-dark"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}

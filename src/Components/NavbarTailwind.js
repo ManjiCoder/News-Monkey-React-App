@@ -31,9 +31,9 @@ function NavbarTailwind(props) {
     setQuery(text);
   };
   return (
-    <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center py-2 px-3 h-14">
+    <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-4 h-14">
       {/* NavIcon Section */}
-      <div className="mr-3 w-6 md:[display:none]">
+      <div className="mr-3 w-6 md:hidden">
         <img
           className="invert cursor-pointer"
           src={navIcon}
@@ -43,39 +43,77 @@ function NavbarTailwind(props) {
       </div>
 
       {/* Logo Section */}
-
-      <Link to="/">
-        <div className="cursor-pointer text-white">
-          <span className="text-base mr-3">{props.title}</span>
-        </div>
-      </Link>
+      <div className="h-14 flex">
+        {/* <span className="text-base mr-3"></span> */}
+        <Link
+          to="/"
+          className="flex place-items-center cursor-pointer text-white"
+        >
+          {props.title}
+        </Link>
+      </div>
 
       {/* SideBar Section */}
       <ul
-        className={`absolute md:static top-14 left-0 bg-gray-800 md:bg-inherit ${toggleSideBar} h-screen md:h-auto display-[none] md:flex md:translate-x-0 items-center space-x-3 pl-4 pr-9 md:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300`}
+        className={`absolute md:static top-14 left-0 bg-gray-800 md:bg-inherit ${toggleSideBar} h-screen md:h-14 display-[none] md:flex md:translate-x-0 items-center space-x-3 pl-4 pr-9 md:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300`}
       >
         <li></li>
-        <NavLink to="/">
-          <li className="cursor-pointer hover:brightness-50">Home</li>
-        </NavLink>
-        <NavLink to="/business">
-          <li className="cursor-pointer hover:brightness-50">Business</li>
-        </NavLink>
-        <NavLink to="/entertainment">
-          <li className="cursor-pointer hover:brightness-50">Entertainment</li>
-        </NavLink>
-        <NavLink to="/health">
-          <li className="cursor-pointer hover:brightness-50">Health</li>
-        </NavLink>
-        <NavLink to="/science">
-          <li className="cursor-pointer hover:brightness-50">Science</li>
-        </NavLink>
-        <NavLink to="/sports">
-          <li className="cursor-pointer hover:brightness-50">Sports</li>
-        </NavLink>
-        <NavLink to="/technology">
-          <li className="cursor-pointer hover:brightness-50">Technology</li>
-        </NavLink>
+        <li className="h-14 flex">
+          <NavLink
+            to="/"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            Home
+          </NavLink>
+        </li>
+        <li className="h-14 flex">
+          <NavLink
+            to="/business"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            Business
+          </NavLink>
+        </li>
+        <li className="h-14 flex">
+          <NavLink
+            to="/entertainment"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            Entertainment
+          </NavLink>
+        </li>
+        <li className="h-14 flex">
+          <NavLink
+            to="/health"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            Health
+          </NavLink>
+        </li>
+        <li className="h-14 flex">
+          <NavLink
+            to="/science"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            Science
+          </NavLink>
+        </li>
+        <li className="h-14 flex">
+          <NavLink
+            to="/sports"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            Sports
+          </NavLink>
+        </li>
+        <li className="h-14 flex">
+          <NavLink
+            to="/Technology"
+            className="cursor-pointer hover:brightness-50 flex place-items-center"
+          >
+            technology
+          </NavLink>
+        </li>
       </ul>
 
       {/* Search */}
