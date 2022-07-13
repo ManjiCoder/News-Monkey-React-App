@@ -8,7 +8,6 @@ import UseContext from "../Context/UseContext";
 
 function NavbarTailwind(props) {
   const [navIcon, setNavIcon] = useState(menuIcon);
-  const [toggleVisibility, setToggleVisibility] = useState("hidden");
   const [text, setText] = useState(""); // For setting Text
   const { setQuery } = useContext(UseContext); // For setting useContext
   const [toggleSideBar, setToggleSideBar] = useState("-translate-x-full");
@@ -20,20 +19,10 @@ function NavbarTailwind(props) {
         : "-translate-x-full"
     );
   };
-  const handleSearch = () => {
-    setToggleVisibility(
-      toggleVisibility === "hidden"
-        ? "visible"
-        : text.length !== 0 && toggleVisibility === "visible"
-        ? "visible"
-        : "hidden"
-    );
-    setQuery(text);
-  };
   return (
     <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-4 h-14">
       {/* NavIcon Section */}
-      <div className="mr-3 w-6 md:hidden">
+      <div className="mr-3 w-6 lg:hidden">
         <img
           className="invert cursor-pointer"
           src={navIcon}
@@ -47,7 +36,7 @@ function NavbarTailwind(props) {
         {/* <span className="text-base mr-3"></span> */}
         <Link
           to="/"
-          className="flex place-items-center cursor-pointer text-white"
+          className="flex place-items-center cursor-pointer text-xl font-medium text-white"
         >
           {props.title}
         </Link>
@@ -55,13 +44,16 @@ function NavbarTailwind(props) {
 
       {/* SideBar Section */}
       <ul
-        className={`absolute md:static top-14 left-0 bg-gray-800 md:bg-inherit ${toggleSideBar} h-screen md:h-14 display-[none] md:flex md:translate-x-0 items-center space-x-3 pl-4 pr-9 md:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300`}
+        className={`rounded-r-lg absolute lg:static top-14 border-t-2 lg:border-none left-0 bg-gray-800 lg:bg-inherit ${toggleSideBar} h-screen w-2/4 lg:w-auto lg:h-14 display-[none] lg:flex lg:translate-x-0 items-center lg:space-x-3 lg:pl-4 pr-9 lg:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300 text-slate-400 overflow-scroll landscape:pb-24`}
       >
         <li></li>
         <li className="h-14 flex">
           <NavLink
             to="/"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
             Home
           </NavLink>
@@ -69,7 +61,10 @@ function NavbarTailwind(props) {
         <li className="h-14 flex">
           <NavLink
             to="/business"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
             Business
           </NavLink>
@@ -77,7 +72,10 @@ function NavbarTailwind(props) {
         <li className="h-14 flex">
           <NavLink
             to="/entertainment"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
             Entertainment
           </NavLink>
@@ -85,7 +83,10 @@ function NavbarTailwind(props) {
         <li className="h-14 flex">
           <NavLink
             to="/health"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
             Health
           </NavLink>
@@ -93,7 +94,10 @@ function NavbarTailwind(props) {
         <li className="h-14 flex">
           <NavLink
             to="/science"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
             Science
           </NavLink>
@@ -101,7 +105,10 @@ function NavbarTailwind(props) {
         <li className="h-14 flex">
           <NavLink
             to="/sports"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
             Sports
           </NavLink>
@@ -109,9 +116,12 @@ function NavbarTailwind(props) {
         <li className="h-14 flex">
           <NavLink
             to="/Technology"
-            className="cursor-pointer hover:brightness-50 flex place-items-center"
+            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+            style={({ isActive }) => ({
+              color: isActive ? "white" : undefined,
+            })}
           >
-            technology
+            Technology
           </NavLink>
         </li>
       </ul>
@@ -124,33 +134,32 @@ function NavbarTailwind(props) {
         }}
       >
         <input
-          type="text"
+          type="search"
           id="search"
-          className={`capitalize rounded-md py-0.5 pl-3 pr-9 w-32 bg-gray-700 focus-within:bg-gray-600 outline-none ${toggleVisibility}`}
+          className="capitalize rounded-md py-0.5 pl-3 pr-9 w-32 bg-gray-700 focus-within:bg-gray-600 outline-none"
           placeholder="Search"
           onChange={(e) => setText(e.target.value)}
           value={text}
         />
         <img
           className={`${
-            text.length !== 0 && toggleVisibility === "visible"
-              ? "visible"
-              : "hidden"
+            text.length !== 0 ? "visible" : "hidden"
           } invert absolute right-14 w-5 cursor-pointer`}
           src={cancelIcon}
           alt=""
           onClick={() => setText("")}
         />
-        <label htmlFor="search">
-          <Link to={text}>
+        {/* <label htmlFor="search"> */}
+        <Link className="flex" to={text}>
+          <button type="submit" onClick={() => setQuery(text)}>
             <img
               className="invert h-6 cursor-pointer"
               src={searchIcon}
               alt="search"
-              onClick={handleSearch}
             />
-          </Link>
-        </label>
+          </button>
+        </Link>
+        {/* </label> */}
       </form>
     </nav>
   );

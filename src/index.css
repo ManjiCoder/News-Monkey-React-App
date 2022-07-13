@@ -104,7 +104,7 @@ footer {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: hsl(210deg 11% 15%);
+  /* background: hsl(210deg 11% 15%); */
   color: white;
   text-align: center;
   border: 2px solid white;
@@ -127,7 +127,7 @@ footer {
 .footer-links {
   border: 1px white solid;
   border-radius: 50%;
-  background: #675f50;
+  /* background: #675f50; */
   padding: 1px;
   height: 40px;
   width: 40px;
@@ -147,3 +147,12 @@ footer {
   color: red;
   all: unset;
 }
+
+/* clears the ‘X’ from Internet Explorer */
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+/* clears the ‘X’ from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }

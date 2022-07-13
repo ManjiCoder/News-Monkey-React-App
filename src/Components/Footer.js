@@ -7,7 +7,7 @@ import LinIn from "../Images/In.png";
 
 function Footer(props) {
   return (
-    <footer>
+    <footer className="bg-gray-800">
       <div className="footer">
         <span>Follow us on.</span>
         <div id="links-wrapper">
@@ -19,7 +19,7 @@ function Footer(props) {
         </div>
         <div className="copyright">
           <span id="symbol">&#0169;Copyright 2017-2021</span>
-          <span> www.{props.title}.com</span>
+          <span><a href="/"> www.{props.title}.com</a></span>
         </div>
         <div className="copyright">All right are reserved</div>
       </div>
