@@ -89,7 +89,7 @@ function News(props) {
   };
   // console.table(props)   //  For Development Only
   return (
-    <>
+    <div className="dark:bg-gray-900">
       {/* For Showing No Data Found */}
       {totalResults === 0 && status === "ok" && <NoDataFound />}
 
@@ -136,7 +136,7 @@ function News(props) {
           </div>
         </div>
       </InfiniteScroll>
-    </>
+    </div>
   );
 }
 News.defaultProps = {

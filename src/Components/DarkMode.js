@@ -7,7 +7,7 @@ function DarkMode() {
         viewBox="0 0 24 24"
         width="30"
         height="30"
-        class="darkToggleIcon_U96C"
+        className="darkToggleIcon_U96C"
       >
         <path
           fill="currentColor"

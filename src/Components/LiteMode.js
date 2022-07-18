@@ -7,7 +7,7 @@ function LiteMode() {
         viewBox="0 0 24 24"
         width="30"
         height="30"
-        class="lightToggleIcon_lgto"
+        className="lightToggleIcon_lgto"
       >
         <path
           fill="currentColor"

@@ -12,8 +12,8 @@ function NavbarTailwind(props) {
   const [navIcon, setNavIcon] = useState(menuIcon);
   const [text, setText] = useState(""); // For setting Text
   const { setQuery } = useContext(UseContext); // For setting useContext
+  const { isDark, setIsDark } = useContext(UseContext); // For Toggle Theme
   const [toggleSideBar, setToggleSideBar] = useState("-translate-x-full");
-  const [modeSVG, setModeSVG] = useState(<LiteMode/>);
   const toggleNavBtn = () => {
     setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
     setToggleSideBar(
@@ -25,14 +25,14 @@ function NavbarTailwind(props) {
   return (
     <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-4 h-14">
       {/* NavIcon Section */}
-      <div className="mr-3 lg:hidden flex place-items-center h-full">
+      <button className="mr-3 lg:hidden flex place-items-center h-full">
         <img
           className="invert w-6 py-4 cursor-pointer"
           src={navIcon}
           alt="menuIcon"
           onClick={toggleNavBtn}
         />
-      </div>
+      </button>
 
       {/* Logo Section */}
       <div className="h-14 flex">
@@ -147,7 +147,7 @@ function NavbarTailwind(props) {
         <img
           className={`${
             text.length !== 0 ? "visible" : "hidden"
-          } invert absolute right-14 w-5 cursor-pointer`}
+          } invert absolute right-28 w-5 cursor-pointer`}
           src={cancelIcon}
           alt=""
           onClick={() => setText("")}
@@ -165,16 +165,12 @@ function NavbarTailwind(props) {
         {/* </label> */}
       </form>
 
-      {/*  */}
+      {/* Toggle Theme Btn */}
       <button
         className="ml-4 p-1 hover:bg-slate-700 rounded-full text-xl"
-        onClick={() =>
-          modeSVG === (<LiteMode/>)
-            ? setModeSVG(<DarkMode />)
-            : setModeSVG(<LiteMode />)
-        }
+        onClick={() => setIsDark(!isDark)}
       >
-        {modeSVG}
+        {isDark ? <DarkMode /> : <LiteMode />}
       </button>
     </nav>
   );
