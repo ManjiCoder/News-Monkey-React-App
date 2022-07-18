@@ -14,7 +14,7 @@ function App() {
   // let API_KEY = process.env.REACT_APP_NEWS_API_KEY; //  Custom Local Environment Variables - API_Key is stored inside .env.local File
   let API_KEY = "ec7735c4db74410f90ffeffaaa8bd570"; // My API_KEY
   API_KEY = "e93da7be7e134c76afa08f33b2b2b96b"; // Other API_KEY
-  // API_KEY = "e93da7be7e134c76afa08f33b2b2b9"; // Wrong API_KEY
+  API_KEY = "e93da7be7e134c76afa08f33b2b2b9"; // Wrong API_KEY
 
   // Creating Date
   let date = new Date();
@@ -174,7 +174,7 @@ function App() {
                 key={query}
                 title={`NewsMonkey`}
                 category={query.toLowerCase()}
-                badgeColor={"bg-dark"}
+                badgeColor={"bg-black"}
                 API_KEY={API_KEY}
                 pagesize={pagesize}
                 UpdateProgressBar={setProgressBar}

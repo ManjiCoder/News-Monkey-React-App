@@ -14,7 +14,7 @@ function NewsItem(props) {
   } = props; // Destructing
 
   return (
-    <div className="max-w-screen-sm 2xl:max-w-md  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col">
+    <div className="max-w-screen-sm 2xl:max-w-md  bg-white rounded-lg border border-gray-200 shadow-md dark:shadow-gray-800 dark:bg-gray-900 dark:border-gray-700 flex flex-col">
       <span
         className={`absolute self-end text-left text-white font-semibold px-2 py-0.5 rounded-full text-xs ${color}`}
       >

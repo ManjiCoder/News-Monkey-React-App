@@ -109,7 +109,7 @@ function News(props) {
         hasMore={articles.length < 90}
         loader={loading && <Spinner />} // show Spinner only if loading is true in state
       >
-        <div className="flex justify-center p-8">
+        <div className="flex justify-center p-8 dark:bg-gray-900">
           <div className="w-screen grid gap-4 lg:gap-x-8 lg:gap-y-16 lg:justify-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {articles.map((element) => {
               return (

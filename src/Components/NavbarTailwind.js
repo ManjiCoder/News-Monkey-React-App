@@ -5,12 +5,15 @@ import menuIcon from "../Images/sort-button-with-three-lines.png";
 import backIcon from "../Images/back.png";
 import { Link, NavLink } from "react-router-dom";
 import UseContext from "../Context/UseContext";
+import DarkMode from "./DarkMode";
+import LiteMode from "./LiteMode";
 
 function NavbarTailwind(props) {
   const [navIcon, setNavIcon] = useState(menuIcon);
   const [text, setText] = useState(""); // For setting Text
   const { setQuery } = useContext(UseContext); // For setting useContext
   const [toggleSideBar, setToggleSideBar] = useState("-translate-x-full");
+  const [modeSVG, setModeSVG] = useState(<LiteMode/>);
   const toggleNavBtn = () => {
     setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
     setToggleSideBar(
@@ -22,9 +25,9 @@ function NavbarTailwind(props) {
   return (
     <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-4 h-14">
       {/* NavIcon Section */}
-      <div className="mr-3 w-6 lg:hidden">
+      <div className="mr-3 lg:hidden flex place-items-center h-full">
         <img
-          className="invert cursor-pointer"
+          className="invert w-6 py-4 cursor-pointer"
           src={navIcon}
           alt="menuIcon"
           onClick={toggleNavBtn}
@@ -44,7 +47,7 @@ function NavbarTailwind(props) {
 
       {/* SideBar Section */}
       <ul
-        className={`rounded-r-lg absolute lg:static top-14 border-t-2 lg:border-none left-0 bg-gray-800 lg:bg-inherit ${toggleSideBar} h-screen w-2/4 lg:w-auto lg:h-14 display-[none] lg:flex lg:translate-x-0 items-center lg:space-x-3 lg:pl-4 pr-9 lg:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300 text-slate-400 overflow-scroll landscape:pb-24`}
+        className={`rounded-r-lg absolute lg:static top-14 border-t-2 lg:border-none left-0 bg-gray-800 lg:bg-inherit ${toggleSideBar} h-screen w-2/4 lg:w-auto lg:h-14 display-[none] lg:flex lg:translate-x-0 items-center lg:space-x-3 lg:pl-4 pr-9 lg:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300 text-slate-400`}
       >
         <li></li>
         <li className="h-14 flex">
@@ -161,6 +164,18 @@ function NavbarTailwind(props) {
         </Link>
         {/* </label> */}
       </form>
+
+      {/*  */}
+      <button
+        className="ml-4 p-1 hover:bg-slate-700 rounded-full text-xl"
+        onClick={() =>
+          modeSVG === (<LiteMode/>)
+            ? setModeSVG(<DarkMode />)
+            : setModeSVG(<LiteMode />)
+        }
+      >
+        {modeSVG}
+      </button>
     </nav>
   );
 }
