@@ -23,7 +23,7 @@ function ScrollToTopBtn() {
   window.addEventListener('scroll', toggleVisible);
   return (
     <div>
-      <button onClick={scrollToTop} className="back-to-top" style={{display:visible?"flex":"none"}}>
+      <button onClick={scrollToTop} className="back-to-top lg:mb-8" style={{display:visible?"flex":"none"}}>
         &#8679;
       </button>
     </div>
