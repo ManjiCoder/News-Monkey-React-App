@@ -23,7 +23,7 @@ function NavbarTailwind(props) {
     );
   };
   return (
-    <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-1 lg:px-4 h-14">
+    <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-4 h-14">
       {/* NavIcon Section */}
       <button className="mr-3 lg:hidden flex place-items-center h-full">
         <img
@@ -131,7 +131,7 @@ function NavbarTailwind(props) {
 
       {/* Search */}
       <form
-        className="justify-self-end ml-auto flex items-center lg:space-x-3 space-x-1"
+        className="justify-self-end ml-auto flex items-center lg:space-x-3 space-x-1.5"
         onSubmit={(event) => {
           event.preventDefault();
         }}
@@ -139,7 +139,7 @@ function NavbarTailwind(props) {
         <input
           type="search"
           id="search"
-          className="capitalize rounded-md py-0.5 pl-3 pr-9 w-28 lg:w-32 bg-gray-700 focus-within:bg-gray-600 outline-none"
+          className="capitalize rounded-md py-0.5 pl-3 pr-9 w-[115px] lg:w-32 bg-gray-700 focus-within:bg-gray-600 outline-none"
           placeholder="Search"
           onChange={(e) => setText(e.target.value)}
           value={text}
@@ -147,7 +147,7 @@ function NavbarTailwind(props) {
         <img
           className={`${
             text.length !== 0 ? "visible" : "hidden"
-          } invert absolute right-28 w-5 cursor-pointer`}
+          } invert absolute right-[100px] lg:right-[104px] w-5 cursor-pointer`}
           src={cancelIcon}
           alt=""
           onClick={() => setText("")}
@@ -156,7 +156,7 @@ function NavbarTailwind(props) {
         <Link className="flex" to={text}>
           <button type="submit" onClick={() => setQuery(text)}>
             <img
-              className="ml-2 lg:m-0 invert w-5 cursor-pointer"
+              className="ml-0.5 mr-1.5 lg:m-0 invert w-5 cursor-pointer"
               src={searchIcon}
               alt="search"
             />
@@ -166,7 +166,7 @@ function NavbarTailwind(props) {
 
         {/* Toggle Theme Btn */}
         <button
-          className="p-1 hover:bg-slate-700 rounded-full text-xl"
+          className="hover:bg-slate-700 rounded-full text-xl p-1"
           onClick={() => setIsDark(!isDark)}
         >
           {isDark ? <DarkMode /> : <LiteMode />}
