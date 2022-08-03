@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import News from "./Components/News";
 import LoadingBar from "react-top-loading-bar";
 import ScrollToTopBtn from "./Components/ScrollToTopBtn";
@@ -7,6 +7,17 @@ import UseContext from "./Context/UseContext";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavbarTailwind from "./Components/NavbarTailwind";
+
+// To get stored data in localStroage
+const getLocalStroageData = () => {
+  let userMode = JSON.parse(localStorage.getItem("theme"));
+  console.log(userMode);
+  if (userMode) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 function App() {
   let pagesize = 16;
@@ -31,7 +42,12 @@ function App() {
 
   // For Navbar - Lifting UP State (Passing Data From Child To Parent) Using useContext
   const [query, setQuery] = useState("");
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(getLocalStroageData());
+  useEffect(() => {
+    // To stored data in localStroage
+    localStorage.setItem("theme", JSON.stringify(isDark));
+  }, [isDark]);
+
   return (
     <div className={`${isDark ? "dark" : ""}`}>
       <UseContext.Provider value={{ query, setQuery, isDark, setIsDark }}>
