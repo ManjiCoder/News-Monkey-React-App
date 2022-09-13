@@ -11,7 +11,7 @@ import NavbarTailwind from "./Components/NavbarTailwind";
 // To get stored data in localStroage
 const getLocalStroageData = () => {
   let userMode = JSON.parse(localStorage.getItem("theme"));
-  console.log(userMode);
+  // console.log(userMode);
   if (userMode) {
     return true;
   } else {
@@ -43,6 +43,8 @@ function App() {
   // For Navbar - Lifting UP State (Passing Data From Child To Parent) Using useContext
   const [query, setQuery] = useState("");
   const [isDark, setIsDark] = useState(getLocalStroageData());
+  const [toggleSideBar, setToggleSideBar] = useState("-translate-x-full"); // For toggleSideBar
+
   useEffect(() => {
     // To stored data in localStroage
     localStorage.setItem("theme", JSON.stringify(isDark));
@@ -50,7 +52,16 @@ function App() {
 
   return (
     <div className={`${isDark ? "dark" : ""}`}>
-      <UseContext.Provider value={{ query, setQuery, isDark, setIsDark }}>
+      <UseContext.Provider
+        value={{
+          query,
+          setQuery,
+          isDark,
+          setIsDark,
+          toggleSideBar,
+          setToggleSideBar,
+        }}
+      >
         <Router>
           <NavbarTailwind title="NewsMonkey" />
           {/* <Navbar title="NewsMonkey" /> */}

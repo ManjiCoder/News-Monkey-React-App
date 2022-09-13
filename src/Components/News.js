@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SomethingWentWrong from "./SomethingWentWrong";
 import NoDataFound from "./NoDataFound";
 import HeadingInfo from "./HeadingInfo";
+import UseContext from "../Context/UseContext";
 
 function News(props) {
   const capitalizeFirstLetter = (string) => {
@@ -18,7 +19,7 @@ function News(props) {
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(null); // Null is Important because it prevent from no data found while fetching
   const [error, setError] = useState(null);
-
+  const { setToggleSideBar } = useContext(UseContext); // For Closing toggleSideBar
   // To Remove Catergory
   if (totalResults === 0) {
     document.title = `${props.title}`;
@@ -87,9 +88,13 @@ function News(props) {
     // console.log(page); //  For Development Only
     // console.log(articles.length); //  For Development Only
   };
+
   // console.table(props)   //  For Development Only
   return (
-    <div className="dark:bg-gray-900">
+    <div
+      className="dark:bg-gray-900"
+      onClick={() => setToggleSideBar("-translate-x-full")}
+    >
       {/* For Showing No Data Found */}
       {totalResults === 0 && status === "ok" && <NoDataFound />}
 

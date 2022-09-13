@@ -13,7 +13,7 @@ function NavbarTailwind(props) {
   const [text, setText] = useState(""); // For setting Text
   const { setQuery } = useContext(UseContext); // For setting useContext
   const { isDark, setIsDark } = useContext(UseContext); // For Toggle Theme
-  const [toggleSideBar, setToggleSideBar] = useState("-translate-x-full");
+  const { toggleSideBar, setToggleSideBar } = useContext(UseContext); // For toggleSideBar
   const toggleNavBtn = () => {
     setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
     setToggleSideBar(
