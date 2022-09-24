@@ -7,6 +7,8 @@ import SomethingWentWrong from "./SomethingWentWrong";
 import NoDataFound from "./NoDataFound";
 import HeadingInfo from "./HeadingInfo";
 import UseContext from "../Context/UseContext";
+import menuIcon from "../Images/sort-button-with-three-lines.png";
+import backIcon from "../Images/back.png";
 
 function News(props) {
   const capitalizeFirstLetter = (string) => {
@@ -20,6 +22,8 @@ function News(props) {
   const [totalResults, setTotalResults] = useState(null); // Null is Important because it prevent from no data found while fetching
   const [error, setError] = useState(null);
   const { setToggleSideBar } = useContext(UseContext); // For Closing toggleSideBar
+  const { navIcon, setNavIcon } = useContext(UseContext);
+  
   // To Remove Catergory
   if (totalResults === 0) {
     document.title = `${props.title}`;
@@ -93,7 +97,7 @@ function News(props) {
   return (
     <div
       className="dark:bg-gray-900"
-      onClick={() => setToggleSideBar("-translate-x-full")}
+      onClick={() => {setToggleSideBar("-translate-x-full");setNavIcon(navIcon === menuIcon ? backIcon : menuIcon)}}
     >
       {/* For Showing No Data Found */}
       {totalResults === 0 && status === "ok" && <NoDataFound />}

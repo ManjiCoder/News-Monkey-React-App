@@ -9,11 +9,11 @@ import DarkMode from "./DarkMode";
 import LiteMode from "./LiteMode";
 
 function NavbarTailwind(props) {
-  const [navIcon, setNavIcon] = useState(menuIcon);
   const [text, setText] = useState(""); // For setting Text
   const { setQuery } = useContext(UseContext); // For setting useContext
   const { isDark, setIsDark } = useContext(UseContext); // For Toggle Theme
-  const { toggleSideBar, setToggleSideBar } = useContext(UseContext); // For toggleSideBar
+  const { toggleSideBar, setToggleSideBar } = useContext(UseContext); // For toggleSideBar.
+  const { navIcon, setNavIcon } = useContext(UseContext);
   const toggleNavBtn = () => {
     setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
     setToggleSideBar(

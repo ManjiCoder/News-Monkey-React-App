@@ -4,6 +4,8 @@ import LoadingBar from "react-top-loading-bar";
 import ScrollToTopBtn from "./Components/ScrollToTopBtn";
 import Footer from "./Components/Footer";
 import UseContext from "./Context/UseContext";
+import menuIcon from "./Images/sort-button-with-three-lines.png";
+import backIcon from "./Images/back.png";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavbarTailwind from "./Components/NavbarTailwind";
@@ -44,6 +46,7 @@ function App() {
   const [query, setQuery] = useState("");
   const [isDark, setIsDark] = useState(getLocalStroageData());
   const [toggleSideBar, setToggleSideBar] = useState("-translate-x-full"); // For toggleSideBar
+  const [navIcon, setNavIcon] = useState(menuIcon);
 
   useEffect(() => {
     // To stored data in localStroage
@@ -60,6 +63,8 @@ function App() {
           setIsDark,
           toggleSideBar,
           setToggleSideBar,
+          navIcon,
+          setNavIcon
         }}
       >
         <Router>
