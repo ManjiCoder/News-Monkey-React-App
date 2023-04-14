@@ -31,7 +31,7 @@ function NewsItem(props) {
           {newsDescription}
         </p>
         <p className="text-sm text-gray-500 my-2 dark:text-gray-400">
-          By {author} on {newsDate}
+          <b>By {author}</b> on {newsDate}
         </p>
 
         <a

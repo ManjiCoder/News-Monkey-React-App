@@ -7,8 +7,6 @@ import SomethingWentWrong from "./SomethingWentWrong";
 import NoDataFound from "./NoDataFound";
 import HeadingInfo from "./HeadingInfo";
 import UseContext from "../Context/UseContext";
-import menuIcon from "../Images/sort-button-with-three-lines.png";
-import backIcon from "../Images/back.png";
 
 function News(props) {
   const capitalizeFirstLetter = (string) => {
@@ -21,8 +19,7 @@ function News(props) {
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(null); // Null is Important because it prevent from no data found while fetching
   const [error, setError] = useState(null);
-  const { setToggleSideBar } = useContext(UseContext); // For Closing toggleSideBar
-  const { navIcon, setNavIcon } = useContext(UseContext);
+  const { title, setIsOpen } = useContext(UseContext); // For Closing toggleSideBar
 
   // To Remove Catergory
   if (totalResults === 0) {
@@ -96,10 +93,9 @@ function News(props) {
   // console.table(props)   //  For Development Only
   return (
     <div
-      className="dark:bg-gray-900 min-h-screen"
+      className="dark:bg-gray-900 min-h-screen bg-slate-300"
       onClick={() => {
-        setToggleSideBar("-translate-x-full");
-        setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
+        setIsOpen(false);
       }}
     >
       {/* For Showing No Data Found */}
@@ -109,7 +105,9 @@ function News(props) {
       {status === "error" && articles.length === 0 ? (
         <SomethingWentWrong error={error} />
       ) : status === "ok" && articles.length !== 0 ? (
-        <HeadingInfo title={props.title} category={props.category} />
+        <HeadingInfo
+          headingTxt={`${title} - ${props.category} Top headlines`}
+        />
       ) : (
         ""
       )}
@@ -132,13 +130,16 @@ function News(props) {
                       element.description ? element.description : "null"
                     }
                     imgUrl={
-                      !element.urlToImage
-                        ? "https://images.livemint.com/img/2022/02/21/600x338/Cygnus_spacecraft_1645444527769_1645444527963.jpg"
-                        : element.urlToImage
+                      (element.urlToImage ||=
+                        "https://d3hnfqimznafg0.cloudfront.net/images/news/ImageForNews_33264_16813708189423484.jpg")
                     }
                     newsUrl={element.url}
                     author={element.author ? element.author : "Unknown"}
-                    newsDate={new Date(element.publishedAt).toGMTString()}
+                    newsDate={`${new Date(
+                      element.publishedAt
+                    ).toDateString()}, ${new Date(
+                      element.publishedAt
+                    ).toLocaleTimeString()}`}
                     source={element.source.name}
                     color={props.badgeColor}
                   />

@@ -1,137 +1,98 @@
 import React, { useContext, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link, NavLink } from "react-router-dom";
+import { BiMenuAltLeft } from "react-icons/bi";
+import { RxCrossCircled } from "react-icons/rx";
 import searchIcon from "../Images/search.png";
 import cancelIcon from "../Images/cancel.png";
-import menuIcon from "../Images/sort-button-with-three-lines.png";
-import backIcon from "../Images/back.png";
-import { Link, NavLink } from "react-router-dom";
 import UseContext from "../Context/UseContext";
 import DarkMode from "./DarkMode";
 import LiteMode from "./LiteMode";
+import UserInfo from "./UserInfo";
+
+const navList = Object.freeze([
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Business",
+    href: "/business",
+  },
+  {
+    name: "Entertainment",
+    href: "/entertainment",
+  },
+  {
+    name: "Health",
+    href: "/health",
+  },
+  {
+    name: "Science",
+    href: "/science",
+  },
+  {
+    name: "Sports",
+    href: "/sports",
+  },
+  {
+    name: "Technology",
+    href: "/technology",
+  },
+]);
 
 function Navbar(props) {
+  const { isAuthenticated } = useAuth0();
   const [text, setText] = useState(""); // For setting Text
-  const { setQuery } = useContext(UseContext); // For setting useContext
-  const { isDark, setIsDark } = useContext(UseContext); // For Toggle Theme
-  const { toggleSideBar, setToggleSideBar } = useContext(UseContext); // For toggleSideBar.
-  const { navIcon, setNavIcon } = useContext(UseContext);
-  const toggleNavBtn = () => {
-    setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
-    setToggleSideBar(
-      toggleSideBar === "-translate-x-full"
-        ? "-translate-x-0"
-        : "-translate-x-full"
-    );
-  };
+  const { title, setQuery } = useContext(UseContext); // For setting useContext
+  const { isDark, setIsDark, isOpen, setIsOpen } = useContext(UseContext); // For Toggle Theme
+
   return (
     <nav className="sticky top-0 z-10 bg-gray-800 text-white flex items-center px-4 h-14">
       {/* NavIcon Section */}
-      <button className="mr-3 lg:hidden flex place-items-center h-full">
-        <img
-          className="invert w-6 py-4 cursor-pointer"
-          src={navIcon}
-          alt="menuIcon"
-          onClick={toggleNavBtn}
-        />
+      <button
+        className="mr-3 lg:hidden flex place-items-center h-full text-3xl"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {!isOpen ? <BiMenuAltLeft /> : <RxCrossCircled />}
       </button>
 
       {/* Logo Section */}
       <div className="h-14 flex">
-        {/* <span className="text-base mr-3"></span> */}
         <Link
           to="/"
           className="flex place-items-center cursor-pointer text-xl font-medium text-white"
         >
-          {props.title}
+          {title}
         </Link>
       </div>
 
       {/* SideBar Section */}
       <ul
-        className={`rounded-r-lg absolute lg:static top-14 border-t-2 lg:border-none left-0 bg-gray-800 lg:bg-inherit ${toggleSideBar} h-screen w-2/4 lg:w-auto lg:h-14 display-[none] lg:flex lg:translate-x-0 items-center lg:space-x-3 lg:pl-4 pr-9 lg:p-0 leading-tight transition-${toggleSideBar} ease-in duration-300 text-slate-400`}
+        className={`rounded-r-lg absolute lg:static top-14 border-t-2 lg:border-none left-0 bg-gray-800 lg:bg-inherit h-screen w-2/4 lg:w-auto lg:h-14 display-[none] lg:flex lg:translate-x-0 items-center lg:space-x-3 lg:pl-4 pr-9 lg:p-0 leading-tight ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } ease-in duration-300 text-slate-400`}
       >
         <li></li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/business"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Business
-          </NavLink>
-        </li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/entertainment"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Entertainment
-          </NavLink>
-        </li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/health"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Health
-          </NavLink>
-        </li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/science"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Science
-          </NavLink>
-        </li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/sports"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Sports
-          </NavLink>
-        </li>
-        <li className="h-14 flex">
-          <NavLink
-            to="/Technology"
-            className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
-            style={({ isActive }) => ({
-              color: isActive ? "white" : undefined,
-            })}
-          >
-            Technology
-          </NavLink>
-        </li>
+        {navList.map(({ name, href }) => (
+          <li className="h-14 flex" key={href}>
+            <NavLink
+              to={href}
+              className="px-7 w-full lg:px-1.5 cursor-pointer hover:text-white flex place-items-center"
+              style={({ isActive }) => ({
+                color: isActive ? "white" : undefined,
+              })}
+              onClick={() => setIsOpen(false)}
+            >
+              {name}
+            </NavLink>
+          </li>
+        ))}
       </ul>
 
       {/* Search */}
       <form
-        className="justify-self-end ml-auto flex items-center lg:space-x-3 space-x-1.5"
+        className="justify-self-end transition-all ml-auto flex items-center lg:space-x-3 space-x-1.5 pr-9"
         onSubmit={(event) => {
           event.preventDefault();
         }}
@@ -162,7 +123,6 @@ function Navbar(props) {
             />
           </button>
         </Link>
-        {/* </label> */}
 
         {/* Toggle Theme Btn */}
         <button
@@ -171,6 +131,9 @@ function Navbar(props) {
         >
           {isDark ? <DarkMode /> : <LiteMode />}
         </button>
+
+        {/* UserInfo */}
+        {isAuthenticated && <UserInfo />}
       </form>
     </nav>
   );

@@ -5,7 +5,7 @@ function Footer(props) {
   return (
     <footer className="mt-auto">
       <hr className="border-gray-200 sm:mx-auto dark:border-white" />
-      <div className="p-4 bg-white sm:p-6 dark:bg-gray-900">
+      <div className="p-4 bg-slate-200 sm:p-6 dark:bg-gray-900">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <Link to="/" className="flex items-center">
