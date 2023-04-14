@@ -23,7 +23,7 @@ function News(props) {
   const [error, setError] = useState(null);
   const { setToggleSideBar } = useContext(UseContext); // For Closing toggleSideBar
   const { navIcon, setNavIcon } = useContext(UseContext);
-  
+
   // To Remove Catergory
   if (totalResults === 0) {
     document.title = `${props.title}`;
@@ -96,8 +96,11 @@ function News(props) {
   // console.table(props)   //  For Development Only
   return (
     <div
-      className="dark:bg-gray-900"
-      onClick={() => {setToggleSideBar("-translate-x-full");setNavIcon(navIcon === menuIcon ? backIcon : menuIcon)}}
+      className="dark:bg-gray-900 min-h-screen"
+      onClick={() => {
+        setToggleSideBar("-translate-x-full");
+        setNavIcon(navIcon === menuIcon ? backIcon : menuIcon);
+      }}
     >
       {/* For Showing No Data Found */}
       {totalResults === 0 && status === "ok" && <NoDataFound />}

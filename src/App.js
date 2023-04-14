@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UseContext from "./Context/UseContext";
+import Navbar from "./Components/Navbar";
+import ScrollToTopBtn from "./Components/ScrollToTopBtn";
 import News from "./Components/News";
 import LoadingBar from "react-top-loading-bar";
-import ScrollToTopBtn from "./Components/ScrollToTopBtn";
-import Footer from "./Components/Footer";
-import UseContext from "./Context/UseContext";
 import menuIcon from "./Images/sort-button-with-three-lines.png";
-import backIcon from "./Images/back.png";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavbarTailwind from "./Components/NavbarTailwind";
+import Footer from "./Components/Footer";
 
 // To get stored data in localStroage
 const getLocalStroageData = () => {
@@ -64,11 +62,11 @@ function App() {
           toggleSideBar,
           setToggleSideBar,
           navIcon,
-          setNavIcon
+          setNavIcon,
         }}
       >
         <Router>
-          <NavbarTailwind title="NewsMonkey" />
+          <Navbar title="NewsMonkey" />
           {/* <Navbar title="NewsMonkey" /> */}
           <ScrollToTopBtn />
           {/* Top Loading Bar */}
